@@ -1,0 +1,87 @@
+commit c969ed4e1ff8efab6a45c82c3abe28969fd30ef1
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Tue Mar 21 23:13:58 2023 +0200
+
+    muutos
+
+ tiedostoja/{file1 => fil22} | 0
+ tiedostoja/file2            | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit a82fd88bb849b4e35bb02ec1d34d3b1105cd50bf
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Tue Mar 21 23:10:57 2023 +0200
+
+    tiedostot luotu
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 14e49b4e0ec085c3991beac0b15406c00ec2a64a
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Tue Mar 21 16:56:08 2023 +0200
+
+    muutos
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 5 ++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 0b23560c26d79e736cb5b06b2331d0cea8e37e7f
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Tue Mar 21 16:51:20 2023 +0200
+
+    rename
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 6f85b1e195464fa9d1bf0c69e9fef35e31eaab8a
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Tue Mar 21 16:44:20 2023 +0200
+
+    poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 380826cd5196de4b605995ce42756c48601da84e
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Fri Mar 17 15:28:58 2023 +0200
+
+    muokattu ja luotu
+
+ kolmas.txt    | 1 +
+ stuff/jes.txt | 0
+ toinen.txt    | 1 +
+ 3 files changed, 2 insertions(+)
+
+commit 5301711e04efe55e684d09cc3a5da88bcfb7905c
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Fri Mar 17 15:26:57 2023 +0200
+
+    jees
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit b3efcc16b53161b08967d0d28984f28df777cdb9
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Fri Mar 17 15:21:23 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 740c5c986a79f13a7f9f7006b9a8768c7071d71f
+Author: hcaatu <aatu.hokkanen@helsinki.fi>
+Date:   Fri Mar 17 15:10:02 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
