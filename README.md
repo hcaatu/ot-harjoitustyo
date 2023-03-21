@@ -7,3 +7,6 @@ tähän väliin **boldattua** tekstiä ja tähän *kursiivia*
 [komentorivi.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
 yksi muutos tähän
+
+toinen muutos tätä en pushaa
+
