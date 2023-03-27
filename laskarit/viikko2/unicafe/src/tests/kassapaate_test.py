@@ -23,8 +23,10 @@ class TestKassapaate(unittest.TestCase):
         self.assertEqual(self.kassapaate.kassassa_rahaa, 100240)
 
     def test_kateisella_ei_riita_rahaa_edullisesti(self):
-        maksu = self.kassapaate.syo_edullisesti_kateisella(200)
-        self.assertEqual(maksu, 200)
+        vaihtoraha = self.kassapaate.syo_edullisesti_kateisella(200)
+        self.assertEqual(vaihtoraha, 200)
+        self.assertEqual(self.kassapaate.edulliset, 0)
+        self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
     
     def test_oikea_maara_vaihtorahaa_maukkaasti(self):
         vaihtoraha = self.kassapaate.syo_maukkaasti_kateisella(500)
@@ -87,4 +89,3 @@ class TestKassapaate(unittest.TestCase):
         self.kassapaate.lataa_rahaa_kortille(self.maksukortti, -100)
         self.assertEqual(self.maksukortti.saldo, 1000)
         self.assertEqual(self.kassapaate.kassassa_rahaa, 100000)
-        
