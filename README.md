@@ -1,6 +1,6 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-tähän väliin **boldattua** tekstiä ja tähän *kursiivia*
+Tervetuloa
 
 [gitlog.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
