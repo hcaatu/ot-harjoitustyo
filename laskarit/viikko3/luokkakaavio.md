@@ -1,14 +1,29 @@
-Sovelluksen loogisen tietomallin muodostavat luokat User ja Todo, jotka kuvaavat käyttäjiä ja käyttäjien tehtäviä:
+Monopoli havainnollistettuna luokkakaaviona:
 
 ```mermaid
  classDiagram
-      Todo "*" --> "1" User
-      class User{
-          username
-          password
+      Pelaaja "*" -- "1" Noppa
+      Noppa "*" ..  "1" Pelaaja
+      class Ruutu{
+          ruutu id
+          ruudun nimi
+          hinta
+          kuka omistaa
+          next
       }
-      class Todo{
-          id
-          content
-          done
+      class Pelaaja{
+          nimi
+          nappula
+          saldo
+          omistus
+      }    
+      
+      class Noppa{
+          silmäluku
+          nappula id
       }
+      
+      class Nappula{
+          pelaaja
+          ruutu
+      
