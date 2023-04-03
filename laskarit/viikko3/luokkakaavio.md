@@ -2,7 +2,7 @@ Monopoli havainnollistettuna luokkakaaviona:
 
 ```mermaid
  classDiagram
-      Noppa ..> Nappula
+      Nappula ..> Noppa
       Pelaaja -- Nappula
       Nappula ..> Ruutu
       Ruutu .. Pelaaja
