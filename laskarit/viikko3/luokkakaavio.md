@@ -2,14 +2,16 @@ Monopoli havainnollistettuna luokkakaaviona:
 
 ```mermaid
  classDiagram
-      Pelaaja "*" -- "1" Noppa
+      Noppa ..> Nappula
+      Pelaaja -- Nappula
+      Nappula ..> Ruutu
       
       class Ruutu{
           ruutu id
           ruudun nimi
           hinta
           kuka omistaa
-          next
+          seuraava ruutu
       }
       class Pelaaja{
           nimi
@@ -18,7 +20,6 @@ Monopoli havainnollistettuna luokkakaaviona:
           omistus
       }    
       
-      Noppa "*" ..  "1" Pelaaja
       class Noppa{
           silmäluku
           nappula id
@@ -27,6 +28,7 @@ Monopoli havainnollistettuna luokkakaaviona:
       class Nappula{
           pelaaja
           ruutu
+          seuraava ruutu
       }
       
 ```
