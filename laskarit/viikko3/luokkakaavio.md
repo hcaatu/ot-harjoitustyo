@@ -5,6 +5,7 @@ Monopoli havainnollistettuna luokkakaaviona:
       Noppa ..> Nappula
       Pelaaja -- Nappula
       Nappula ..> Ruutu
+      Ruutu .. Pelaaja
       
       class Ruutu{
           ruutu id
@@ -14,10 +15,11 @@ Monopoli havainnollistettuna luokkakaaviona:
           seuraava ruutu
       }
       class Pelaaja{
+          id
           nimi
           nappula
           saldo
-          omistus
+          kiinteistöt
       }    
       
       class Noppa{
@@ -27,7 +29,7 @@ Monopoli havainnollistettuna luokkakaaviona:
       
       class Nappula{
           pelaaja
-          ruutu
+          nykyinen ruutu
           seuraava ruutu
       }
       
