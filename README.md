@@ -1,11 +1,8 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-Tervetuloa
+Teen ohjelmistotekniikan harjoitustyönä yksinkertaisen tower defence -pelin pygamella. Täältä löytyy pelin lähdekoodi, testit, dokumentaatio sekä kirjanpito projektiin käytetyistä työtunneista.
 
-[gitlog.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+Dokumentaatio:
 
-[komentorivi.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
-
-[työtunnit](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/tyotunnit.md)
-
-[vaatimusmäärittely](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
+[Työtunnit](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/tyotunnit.md)
+[Vaatimusmäärittely](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
