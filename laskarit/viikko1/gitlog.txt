@@ -1,0 +1,95 @@
+commit 015ea401a97dec915b230e611db02da3bea03aa0
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:39:56 2023 +0200
+
+    poisto ja rename
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit da7646e32be7f3a38e76e0068d1c29a642b62b10
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:37:03 2023 +0200
+
+    filet luotu
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1c5f79daadf295342392797835e35fbe6b4f4ac1
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:30:48 2023 +0200
+
+    teksti muuttui
+
+ eka.txt    | 1 +
+ kolmas.txt | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+commit 7391d12e7523f3588b3906702e78209fa6e9ff96
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:29:26 2023 +0200
+
+    rename
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 150f4eb949e84c2bbdf7832ae1062dfe5c18729e
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:28:32 2023 +0200
+
+    poisto
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 4a2cb84ee9659a9516b1658d756a33d2541bcf43
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:20:37 2023 +0200
+
+    stuff luotu
+
+ stuff/neljas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 300022b11ecb19e77a6b0aafc3d74b9045ac06c9
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:19:48 2023 +0200
+
+    muutos tekstiin
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit f15e3556ec2e3e6f63912d6849a1e7a2a1f08c4c
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:18:51 2023 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 2f505c836fc6aa59df240794c3a9c20ed1646a05
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:18:11 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit e38e28e0036f28fd2a2fbc705f58f1a7161d79bb
+Author: hcaatu <aatu.hokkane@gmail.com>
+Date:   Wed Nov 1 14:17:08 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
