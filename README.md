@@ -1,2 +1,5 @@
-# Tervetuloa
-Täältä löytyy tällä hetkellä **viikon 1** tehtävät ja _myöhemmin_ harjoitustyö
+# Ohjelmistotekniikka, harjoitustyö
+### Tehtävät
+### Viikko 1
+[gitlog.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+[komentorivi.txt](https://github.com/hcaatu/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
