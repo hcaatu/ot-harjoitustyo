@@ -43,12 +43,12 @@ class TestMaksukortti(unittest.TestCase):
         kortti.lataa_rahaa(-100)
         self.assertEqual(kortti.saldo_euroina(), 10.0)
 
-    def test_kortilla_voi_syödä_edullisesti_kun_saldoa_on_tasan_lounaan_verran(self):
+    def test_kortilla_voi_syoda_edullisesti_kun_saldoa_on_tasan_lounaan_verran(self):
         kortti = Maksukortti(250)
         kortti = syo_edullisesti()
         self.assertEqual(kortti.saldo_euroina(), 0.0)
 
-    def test_kortilla_voi_syödä_maukkaasti_kun_saldoa_on_tasan_lounaan_verran(self):
+    def test_kortilla_voi_syoda_maukkaasti_kun_saldoa_on_tasan_lounaan_verran(self):
         kortti = Maksukortti(400)
         kortti = syo_maukkaasti()
         self.assertEqual(kortti.saldo_euroina(), 0.0)
