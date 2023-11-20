@@ -8,8 +8,7 @@ sequenceDiagram
     participant Lataajalaite
     participant Lukijalaite
     participant Matkakortti
-
-    create HKLLaitehallinto
+    participant HKLLaitehallinto
 
     main ->> HKLLaitehallinto: HKLLaitehallinto()
 
