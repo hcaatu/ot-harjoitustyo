@@ -10,6 +10,7 @@ sequenceDiagram
     participant Matkakortti
 
     create HKLLaitehallinto
+
     main ->> HKLLaitehallinto: HKLLaitehallinto()
 
     main ->> HKLLaitehallinto: lisaa_lataaja(rautatietori)
@@ -23,7 +24,7 @@ sequenceDiagram
 
     main ->> Lataajalaite: lataa_arvoa(kallen_kortti, 3)
     Lataajalaite ->> Matkakortti: kasvata_arvoa(3)
-    
+
     activate Lukijalaite
     main ->> Lukijalaite: osta_lippu(kallen_kortti, 0)
     Lukijalaite ->> Matkakortti: vahenna_arvoa(1.5)
