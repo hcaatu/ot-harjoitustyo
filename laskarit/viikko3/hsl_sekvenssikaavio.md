@@ -9,7 +9,8 @@ sequenceDiagram
     participant Lukijalaite
     participant Matkakortti
 
-    main ->>+ create("HKLLaitehallinto()")
+    create participant HKLLaitehallinto
+    main ->> HKLLaitehallinto: HKLLaitehallinto()
 
     main ->> HKLLaitehallinto: lisaa_lataaja(rautatietori)
     main ->> HKLLaitehallinto: lisaa_lukija(ratikka6)
