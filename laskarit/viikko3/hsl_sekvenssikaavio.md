@@ -3,30 +3,35 @@
 
 ```mermaid
 sequenceDiagram
+    participant main
     participant Kioski
     participant Lataajalaite
     participant Lukijalaite
     participant Matkakortti
-    participant HKLLaitehallinto
 
-    activate HKLLaitehallinto
+    main ->> HKLLaitehallinto()
 
-    HKLLaitehallinto ->> Lataajalaite: lisaa_lataaja(rautatietori)
-    HKLLaitehallinto ->> Lukijalaite: lisaa_lukija(ratikka6)
-    HKLLaitehallinto ->> Lukijalaite: lisaa_lukija(bussi244)
+    main ->> HKLLaitehallinto: lisaa_lataaja(rautatietori)
+    main ->> HKLLaitehallinto: lisaa_lukija(ratikka6)
+    main ->> HKLLaitehallinto: lisaa_lukija(bussi244)
 
-    Kioski ->> Lataajalaite: osta_matkakortti("Kalle")
+    activate Kioski
+    main ->> Kioski: osta_matkakortti("Kalle")
+    Kioski -->> main: Matkakortti("Kalle")
+    deactivate Kioski
+
+    main ->> Lataajalaite: lataa_arvoa(kallen_kortti, 3)
     Lataajalaite ->> Matkakortti: kasvata_arvoa(3)
+    
 
     activate Lukijalaite
-    Lukijalaite ->> Matkakortti: osta_lippu(0)
-    Matkakortti -->> Lukijalaite: vahenna_arvoa(1.5)
+    main ->> Lukijalaite: osta_lippu(kallen_kortti, 0)
+    Lukijalaite ->> Matkakortti: vahenna_arvoa(1.5)
+    Lukijalaite -->> main: True
     deactivate Lukijalaite
 
     activate Lukijalaite
-    Lukijalaite ->> Matkakortti: osta_lippu(2)
-    Matkakortti -->> Lukijalaite: vahenna_arvoa(2.1)
+    main ->> Lukijalaite: osta_lippu(kallen_kortti, 2)
+    Lukijalaite -->> main: False
     deactivate Lukijalaite
-
-    deactivate HKLLaitehallinto
 ```
