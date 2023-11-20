@@ -1,11 +1,10 @@
-## Monopoli, alustava luokkakaavio
+## Monopoli havainnollistettuna luokkakaaviona
 
 ```mermaid
  classDiagram
     Monopolipeli "1" -- "2" Noppa
     Monopolipeli "1" -- "1" Pelilauta
     Pelilauta "1" -- "40" Ruutu
-    Ruututyyppi "1" -- "1" Ruutu
     Katu "0..4" -- "0..4" Katu : talot
     Katu "0..1" -- "0..1" Katu : hotelli
     Ruutu "1" -- "0..8" Pelinappula
@@ -27,7 +26,7 @@
 
 
     class Katu{
-	ruutu id
+	ruutu id =0
 	hinta
 	omistaja
 	talot
@@ -36,29 +35,29 @@
     }
 
     class Laitos{
-	ruutu id
+	ruutu id =1
 	hinta
 	omistaja
 	toiminto
     }
 
     class Sattuma{
-	ruutu id
+	ruutu id =2
 	toiminto
     }
 
     class Vankila{
-	ruutu id
+	ruutu id =3
 	toiminto
     }
 
     class MeneVankilaan{
-	ruutu id
+	ruutu id =4
 	toiminto
     }
 
     class Aloitus{
-	ruutu id
+	ruutu id =5
 	toiminto
     }
 ```
