@@ -1,23 +1,23 @@
 import pygame
-import os
 
 class UI:
     def __init__(self):
         pygame.init()
         self.resolution = (640, 480)
+        
         self.window = pygame.display.set_mode(self.resolution)
         self.clock = pygame.time.Clock()
-        self.load_images()
-        self.icon = self.images["matrix_logo"]
+      # self.load_images()
+        self.icon = pygame.Surface([100, 100])
+        self.icon.fill((255, 0, 0))
+        self.center = (self.resolution[0]/2 - self.icon.get_width()/2, self.resolution[1]/2 - self.icon.get_height()/2)
+        self.score = 0
         self.update()
 
     def fill_screen(self, color):
         self.window.fill(color)
 
     def update(self):
-        grey = (50, 50, 50)
-        self.fill_screen(grey)
-            
         self.running = True
 
         while self.running:
@@ -27,19 +27,34 @@ class UI:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
+                    if event.key == pygame.MOUSEBUTTONDOWN:
+                        if event.pos[0] > 270 and event.pos[1] > 190:
+                            if event.pos[0] < 370 and event.pos[1] < 290:
+                                self.score += 1
+                    if event.key == pygame.K_a:
+                        self.score += 1
 
-            self.window.blit(self.icon, (320, 240))
+            grey = (200, 200, 200)
+            self.fill_screen(grey)
+
+            self.window.blit(self.icon, (self.center))
+
+            font = pygame.font.SysFont("Arial", 24)
+            counter = font.render(f"Score: {str(self.score)}", True, (255, 0, 0))
+            self.window.blit(counter, (0, 0))
 
             pygame.display.flip()
             self.clock.tick()
 
+"""
     def load_images(self):
         dirname = os.path.dirname(__file__)
         self.images = {}
-        for name in ["matrix_logo"]:
+        for name in ["logo"]:
             self.images[name] = pygame.image.load(
                 os.path.join(dirname, "assets", name + ".png")
             )
+"""
 
 """
 class Block(pygame.sprite.Sprite):
