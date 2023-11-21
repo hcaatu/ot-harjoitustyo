@@ -9,3 +9,7 @@ class TestUI(unittest.TestCase):
     def test_UI_starts_properly(self):
         self.assertEqual(self.UI.resolution, (640, 480))
         self.assertEqual(self.UI.window, pygame.display)
+
+    def test_UI_closes_properly(self):
+        pygame.QUIT
+        self.assertEqual(self.UI.running, False)
