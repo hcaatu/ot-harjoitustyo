@@ -12,6 +12,7 @@ class AppUI:
         self.window = pygame.display.set_mode(self.resolution)
 
         self.show_upgrades = False
+        self.show_textbox = False
 
         self.images = []
         filenames = ["coffee", "bars", "coffee_maker", "textbox"]
