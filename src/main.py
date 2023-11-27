@@ -13,6 +13,13 @@ class Main:
 
     def update(self):
         while self.running:
+            
+            grey = (200, 200, 200)
+            self.ui.fill_screen(grey)
+
+            if self.ui.show_upgrades:
+                self.ui.window.blit(self.ui.coffeemaker, (self.ui.below_topright))
+
             for event in pygame.event.get():
                 
                 if event.type == pygame.QUIT:
@@ -22,32 +29,47 @@ class Main:
                         self.running = False
 
                     if event.key == pygame.K_a:
-                        self.app.buy_upgrade(CoffeeMaker())
+                        self.app.buy_upgrade(CoffeeMaker(), CoffeeMaker().cost + self.app.upgrades["coffee_maker"] * 10) # fix this
+                        print(self.app.upgrades["coffee_maker"])
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.ui.icon_coords[0] < event.pos[0] < self.ui.icon_coords[1] and self.ui.icon_coords[2] < event.pos[1] < self.ui.icon_coords[3]:
+                    if self.ui.mouse_collide(self.ui.coffee, self.ui.center, event):
                         self.app.score += 1
+
+                    if self.ui.mouse_collide(self.ui.bars, self.ui.topright, event):
+                        if self.ui.show_upgrades:
+                            self.ui.show_upgrades = False
+                        else:
+                            self.ui.show_upgrades = True
+
+                    if self.ui.mouse_collide(self.ui.coffeemaker, self.ui.below_topright, event):
+                        if self.ui.show_upgrades:
+                            self.app.buy_upgrade(CoffeeMaker(), CoffeeMaker().cost + self.app.upgrades["coffee_maker"] * 10) # fix this
 
                 # Make the icon larger when hovering mouse over
 
                 if event.type == pygame.MOUSEMOTION:
-                    if self.ui.icon_coords[0] < event.pos[0] < self.ui.icon_coords[1] and self.ui.icon_coords[2] < event.pos[1] < self.ui.icon_coords[3]:
+                    if self.ui.mouse_collide(self.ui.coffee, self.ui.center, event):
                         # print(event.pos)
-                        self.ui.icon = self.ui.big_icon
-                        self.ui.center = (self.ui.resolution[0]/2 - self.ui.icon.get_width()/2, self.ui.resolution[1]/2 - self.ui.icon.get_height()/2)
+                        self.ui.coffee = self.ui.big_icon
+                        self.ui.center = (self.ui.resolution[0]/2 - self.ui.coffee.get_width()/2, self.ui.resolution[1]/2 - self.ui.coffee.get_height()/2) # make function
+                    elif self.ui.mouse_collide(self.ui.coffeemaker, self.ui.below_topright, event):
+                        if self.ui.show_upgrades:
+                            self.ui.window.blit(self.ui.textbox, (event.pos[0] - self.ui.images[3].get_width(), event.pos[1]))
                     else:
-                        self.ui.icon = self.ui.image
-                        self.ui.center = (self.ui.resolution[0]/2 - self.ui.icon.get_width()/2, self.ui.resolution[1]/2 - self.ui.icon.get_height()/2)
-                        
-            
-            grey = (200, 200, 200)
-            self.ui.fill_screen(grey)
+                        self.ui.coffee = self.ui.images[0]
+                        self.ui.center = (self.ui.resolution[0]/2 - self.ui.coffee.get_width()/2, self.ui.resolution[1]/2 - self.ui.coffee.get_height()/2)
 
-            self.ui.window.blit(self.ui.icon, (self.ui.center))
+            self.ui.window.blit(self.ui.coffee, (self.ui.center))
+            self.ui.window.blit(self.ui.bars, (self.ui.topright))
+            
 
             font = pygame.font.SysFont("Arial", 24)
-            counter = font.render(f"Score: {str(int(self.app.score))}", True, (255, 0, 0))
-            self.ui.window.blit(counter, (0, 0))
+            black = (0, 0, 0)
+            counter = font.render(f"Coffee: {str(int(self.app.score))}", True, black)
+            self.ui.window.blit(counter, (10, 10))
+            score_per_second = font.render(f"{str(self.app.profit)} coffee/second", True, black)
+            self.ui.window.blit(score_per_second, (10, 36))
 
             self.app.apply_profit()
 

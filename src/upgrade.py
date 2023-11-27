@@ -1,5 +1,3 @@
-import pygame
-
 class CoffeeMaker:
     def __init__(self):
             self.name = "coffee_maker"

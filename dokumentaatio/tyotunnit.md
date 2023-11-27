@@ -6,4 +6,8 @@
 
 ## Viikko 3
 - maanantai 20.11. 4h
+- tiistai 21.11. 4h
+- lauantai 25.11. 1h
 
+## Viikko 4
+- maanantai 27.11. 7h

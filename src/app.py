@@ -1,21 +1,21 @@
-import pygame
 from upgrade import CoffeeMaker
 
 class App:
     def __init__(self):
         self.score = 0
-        self.tickrate = 60
+        self.tickrate = 30
         self.upgrades = {"coffee_maker" : 0}
         self.profit = None
 
-    def buy_upgrade(self, upgrade):
-        if self.score >= upgrade.cost:
-            self.score -= upgrade.cost
+    def buy_upgrade(self, upgrade, cost):
+        if self.score >= cost:
+            self.score -= cost
             self.upgrades[upgrade.name] += 1
+            self.cost[upgrade.name] *= 1.1
             print(self.upgrades)
             self.calculate_profit()
             print("yes")
-        elif self.score < upgrade.cost:
+        elif self.score < cost:
             print("no")
 
     def calculate_profit(self):
@@ -29,3 +29,4 @@ class App:
     def apply_profit(self):
         if self.profit:
             self.score += self.profit / self.tickrate
+            
