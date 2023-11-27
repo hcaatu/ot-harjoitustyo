@@ -1,19 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
 import pygame
-
-# Fix for importing issues on WSL
-
-import sys
-import os
-myDir = os.getcwd()
-sys.path.append(myDir)
-
-from pathlib import Path
-path = Path(myDir)
-a=str(path.parent.absolute())
-sys.path.append(myDir)
-
 from UI import UI
 
 class TestUI(unittest.TestCase):
@@ -30,7 +17,7 @@ class TestUI(unittest.TestCase):
         ui = UI()
         ui.running = True
         pygame.event.get = MagicMock(return_value=[pygame.event.Event(pygame.QUIT)])
-
         ui.update()
-
         self.assertFalse(ui.running)
+
+    
