@@ -1,9 +1,9 @@
 # Työaikakirjanpito
 | päivä | aika (h) | mitä tein  |
 | :----:|:-----| :-----|
-| 13.11. | 4    | viikon 2 laskarit, testien kirjoittaminen |
+| 13.11. | 1    | toteutukseen perehtyminen |
 | 14.11. | 2    | vaatimusmäärittelyn kirjoittaminen, projektin aloitus |
-| 17.11. | 3    | viikon 3 laskarit, luokka- ja sekvenssikaavio |
+| 17.11. | 3    | sovelluksen suunnittelu, perehtyminen pygameen |
 | 20.11. | 4    | sovelluksen ui, sovelluslogiikan kirjoittaminen |
 | 21.11. | 4    | repositorion siistiminen, testien kirjoittaminen, bugien korjaaminen |
 | 25.11. | 1    | sovelluslogiikan laajentaminen |
