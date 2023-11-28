@@ -7,6 +7,6 @@ class TestUI(unittest.TestCase):
         self.ui = AppUI()
     
     def test_screen_correct_resolution(self):
-        self.assertEqual(self.ui.resolution, (1260, 720))
+        self.assertEqual(self.ui.resolution, (1280, 720))
 
     
