@@ -59,8 +59,7 @@ class AppUI:
         window.blit(self.textbox, pos)
         window.blit((font.render("Coffee maker", True, black)),
                     [15 + i for i in pos])
-        # assigning variable before using it in f-string somehow fixes 
-        # syntax error in wsl, hence pylint comment
+# assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
         decimal_format = "{:.2f}".format(self.cost["coffee_maker"]) # pylint: disable=consider-using-f-string
         window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
             pos[0] + margin, pos[1] + margin + leading))
@@ -74,8 +73,9 @@ class AppUI:
     def mouse_collide(self, icon, pos, event):
         icon_coords = [pos[0], pos[0] + icon.get_width(), pos[1],
                        pos[1] + icon.get_height()]
-        if icon_coords[0] < event.pos[0] < icon_coords[1] and icon_coords[2] < event.pos[1] < icon_coords[3]:
-            return True
+        if icon_coords[0] < event.pos[0] < icon_coords[1]:
+            if icon_coords[2] < event.pos[1] < icon_coords[3]:
+                return True
         return False
 
     def fill_screen(self, color):

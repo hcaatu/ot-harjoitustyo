@@ -84,5 +84,4 @@ class Main:
             pygame.display.update()
             self.clock.tick(self.app.tickrate)
 
-
 Main()
