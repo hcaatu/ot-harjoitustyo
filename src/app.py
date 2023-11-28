@@ -12,7 +12,6 @@ class App:
         self.score -= cost
         self.upgrades[upgrade.name] += 1
         self.cost[upgrade.name] *= 1.2
-        print(self.upgrades)
         self.calculate_profit()
 
     def calculate_profit(self):

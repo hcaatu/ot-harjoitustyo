@@ -37,7 +37,6 @@ class AppUI:
         self.cost = {"coffee_maker": CoffeeMaker().cost}
 
         self.center = self.get_center(self.coffee)
-        # self.coffee_coords = self.get_coords(self.coffee, self.center)
 
         self.safezone = 20
         self.topright = (
@@ -58,12 +57,15 @@ class AppUI:
         leading = 26
         black = (0, 0, 0)
         window.blit(self.textbox, pos)
-        window.blit((font.render(f"Coffee maker", True, black)),
+        window.blit((font.render("Coffee maker", True, black)),
                     [15 + i for i in pos])
-        decimal_format = "{:.2f}".format(self.cost["coffee_maker"])
+        # assigning variable before using it in f-string somehow fixes 
+        # syntax error in wsl, hence pylint comment
+        decimal_format = "{:.2f}".format(self.cost["coffee_maker"]) # pylint: disable=consider-using-f-string
         window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
             pos[0] + margin, pos[1] + margin + leading))
-        window.blit((font.render(f"Produces {CoffeeMaker().profit} coffee per second", True, black)), (
+        window.blit((
+            font.render(f"Produces {CoffeeMaker().profit} coffee per second", True, black)), (
             pos[0] + 15, pos[1] + margin + 2 * leading))
         font.set_italic(font)
         window.blit((font.render("Makes more coffee", True, black)),
@@ -83,14 +85,3 @@ class AppUI:
         center = (self.resolution[0]/2 - icon.get_width()/2,
                   self.resolution[1]/2 - icon.get_height()/2)
         return center
-
-
-"""
-    def load_images(self):
-        dirname = os.path.dirname(__file__)
-        self.images = {}
-        for name in ["logo"]:
-            self.images[name] = pygame.image.load(
-                os.path.join(dirname, "assets", name + ".png")
-            )
-"""
