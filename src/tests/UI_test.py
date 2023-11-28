@@ -10,3 +10,4 @@ class TestUI(unittest.TestCase):
         self.assertEqual(self.ui.resolution, (1280, 720))
 
     
+    
