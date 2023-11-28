@@ -1,13 +1,11 @@
-# Työtunnit
-## Viikko 2
-- maanantai 13.11. 4h
-- tiistai 14.11. 2h
--perjantai 17.11. 3h
-
-## Viikko 3
-- maanantai 20.11. 4h
-- tiistai 21.11. 4h
-- lauantai 25.11. 1h
-
-## Viikko 4
-- maanantai 27.11. 7h
+# Työaikakirjanpito
+| päivä | aika (h) | mitä tein  |
+| :----:|:-----| :-----|
+| 13.11. | 4    | viikon 2 laskarit, testien kirjoittaminen |
+| 14.11. | 2    | vaatimusmäärittelyn kirjoittaminen, projektin aloitus |
+| 17.11. | 3    | viikon 3 laskarit, luokka- ja sekvenssikaavio |
+| 20.11. | 4    | sovelluksen ui, sovelluslogiikan kirjoittaminen |
+| 21.11. | 4    | repositorion siistiminen, testien kirjoittaminen, bugien korjaaminen |
+| 25.11. | 1    | sovelluslogiikan laajentaminen |
+| 27.11. | 8    | sovelluslogiikan laajentaminen, koodin siistiminen, testaaminen |
+| 28.11. | 7    | pylint asennus, testien kirjoittaminen, git ongelmien ratkominen |
