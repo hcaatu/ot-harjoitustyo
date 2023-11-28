@@ -1,5 +1,5 @@
 import pygame
-from UI import AppUI
+from ui import AppUI
 from app import App
 from upgrade import CoffeeMaker
 

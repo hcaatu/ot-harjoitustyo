@@ -1,6 +1,4 @@
-import pygame
 from upgrade import CoffeeMaker
-
 
 class App:
     def __init__(self):

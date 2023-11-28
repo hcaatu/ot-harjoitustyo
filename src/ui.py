@@ -1,5 +1,5 @@
-import pygame
 import os
+import pygame
 from upgrade import CoffeeMaker
 
 # path to the directory of this file
@@ -60,12 +60,13 @@ class AppUI:
         window.blit(self.textbox, pos)
         window.blit((font.render(f"Coffee maker", True, black)),
                     [15 + i for i in pos])
-        window.blit((font.render(f"Cost: {"{:.2f}".format(self.cost["coffee_maker"])}", True, black)), (
+        decimal_format = "{:.2f}".format(self.cost["coffee_maker"])
+        window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
             pos[0] + margin, pos[1] + margin + leading))
         window.blit((font.render(f"Produces {CoffeeMaker().profit} coffee per second", True, black)), (
             pos[0] + 15, pos[1] + margin + 2 * leading))
         font.set_italic(font)
-        window.blit((font.render(f"Makes more coffee", True, black)),
+        window.blit((font.render("Makes more coffee", True, black)),
                     (pos[0] + 25, pos[1] + 105))
 
     def mouse_collide(self, icon, pos, event):
