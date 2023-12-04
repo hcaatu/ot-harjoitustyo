@@ -15,6 +15,8 @@ class AppUI:
         self.profit = 0
         self.show_upgrades = False
         self.show_textbox = False
+        self.timer = 0
+        self.font = pygame.font.SysFont("Arial", 24)
 
         self.images = []
         filenames = ["coffee", "bars", "coffee_maker", "textbox"]
@@ -34,6 +36,7 @@ class AppUI:
 
         self.big_icon = pygame.transform.scale_by(self.coffee, [1.2, 1.2])
 
+        self.upgrades = {"coffee_maker": 0}
         self.cost = {"coffee_maker": CoffeeMaker().cost}
 
         self.center = self.get_center(self.coffee)
@@ -44,21 +47,34 @@ class AppUI:
         self.below_topright = (
             self.topright[0], self.topright[1] + self.bars.get_height() + 2)
 
-    def render_text(self, window, font):
+    def render_text(self, window):
         black = (0, 0, 0)
+        font = self.font
         counter = font.render(f"Coffee: {str(int(self.score))}", True, black)
         window.blit(counter, (self.safezone, 10))
         score_per_second = font.render(
             f"{str(self.profit)} coffee/second", True, black)
         window.blit(score_per_second, (self.safezone, 36))
 
-    def render_textbox(self, window, font, pos):
+    def render_game_saved(self):
+        black = (0, 0, 0)
+        size = 28
+        font = pygame.font.SysFont("Arial", size)
+        pos = (self.safezone, self.resolution[1] - size - self.safezone)
+        text = font.render("Game saved!", True, black)
+        self.window.blit(text, pos)
+
+    def render_textbox(self, window, pos):
         margin = 15
         leading = 26
         black = (0, 0, 0)
+        font = self.font
         window.blit(self.textbox, pos)
-        window.blit((font.render("Coffee maker", True, black)),
-                    [15 + i for i in pos])
+        window.blit((font.render(f"Coffee maker", True, black)),
+                    [margin + i for i in pos])
+        if self.upgrades["coffee_maker"] != 0:
+            window.blit((font.render(f": {self.upgrades["coffee_maker"]}", True, black)),
+                        (132 + pos[0], margin + pos[1]))
 # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
         decimal_format = "{:.2f}".format(self.cost["coffee_maker"]) # pylint: disable=consider-using-f-string
         window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
@@ -66,8 +82,8 @@ class AppUI:
         window.blit((
             font.render(f"Produces {CoffeeMaker().profit} coffee per second", True, black)), (
             pos[0] + 15, pos[1] + margin + 2 * leading))
-        font.set_italic(font)
-        window.blit((font.render("Makes more coffee", True, black)),
+        italic = pygame.font.SysFont("Arial", 24, False, True)
+        window.blit((italic.render("Makes more coffee", True, black)),
                     (pos[0] + 25, pos[1] + 105))
 
     def mouse_collide(self, icon, pos, event):

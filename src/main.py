@@ -3,14 +3,21 @@ from ui import AppUI
 from app import App
 from upgrade import CoffeeMaker
 
-
 class Main:
     def __init__(self):
         self.running = True
         self.clock = pygame.time.Clock()
         self.app = App()
         self.ui = AppUI()
+        self.app.load_game()
+        self.sync()
         self.update()
+
+    def sync(self):
+        self.ui.cost = self.app.cost
+        self.ui.profit = self.app.profit
+        self.ui.upgrades = self.app.upgrades
+        self.ui.cost = self.app.cost
 
     def update(self):
         while self.running:
@@ -34,6 +41,10 @@ class Main:
                             self.app.buy_upgrade(
                                 CoffeeMaker(), self.app.cost["coffee_maker"])
                             self.ui.cost["coffee_maker"] *= 1.2
+
+                    if event.key == pygame.K_s:
+                        self.app.save_game()
+                        self.ui.timer = 2 * self.app.tickrate
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.ui.mouse_collide(self.ui.coffee, self.ui.center, event):
@@ -71,15 +82,19 @@ class Main:
             self.ui.window.blit(self.ui.coffee, (self.ui.center))
             self.ui.window.blit(self.ui.bars, (self.ui.topright))
 
-            font = pygame.font.SysFont("Arial", 24)
+            self.ui.render_text(self.ui.window)
 
-            self.ui.render_text(self.ui.window, font)
+            if self.ui.timer:
+                self.ui.render_game_saved()
+                self.ui.timer -= 1
 
             if self.ui.show_textbox:
-                self.ui.render_textbox(self.ui.window, font, textbox_pos)
+                self.ui.render_textbox(self.ui.window, textbox_pos)
 
             self.app.apply_profit()
             self.ui.profit = self.app.profit
+
+            self.app.time_played += 1/self.app.tickrate
 
             pygame.display.update()
             self.clock.tick(self.app.tickrate)
