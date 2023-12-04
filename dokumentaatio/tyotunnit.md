@@ -9,3 +9,6 @@
 | 25.11. | 1    | sovelluslogiikan laajentaminen |
 | 27.11. | 8    | sovelluslogiikan laajentaminen, koodin siistiminen, testaaminen |
 | 28.11. | 7    | pylint asennus, testien kirjoittaminen, git ongelmien ratkominen |
+| 30.11. | 1    | arkkitehtuurikaavion lisääminen|
+| 4.12. | 6    | uuden toiminnallisuuden lisääminen, vikojen korjaaminen|
+| yht | 37    | 
