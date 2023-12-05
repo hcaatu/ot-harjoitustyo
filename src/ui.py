@@ -15,7 +15,7 @@ class AppUI:
         self.profit = 0
         self.show_upgrades = False
         self.show_textbox = False
-        self.timer = 0
+        self.timers = {"game_saved": 0, "no_money": 0}
         self.font = pygame.font.SysFont("Arial", 24)
 
         self.images = []
@@ -56,13 +56,18 @@ class AppUI:
             f"{str(self.profit)} coffee/second", True, black)
         window.blit(score_per_second, (self.safezone, 36))
 
-    def render_game_saved(self):
+    def render_with_timer(self, msg, pos=None):
         black = (0, 0, 0)
         size = 28
         font = pygame.font.SysFont("Arial", size)
-        pos = (self.safezone, self.resolution[1] - size - self.safezone)
-        text = font.render("Game saved!", True, black)
+        if msg == "game_saved":
+            pos = (self.safezone, self.resolution[1] - size - self.safezone)
+            text = font.render("Game saved!", True, black)
+        elif msg == "no_money":
+            pos = (pos[0] - 220, pos[1] - 33)
+            text = font.render("Not enough coffee!", True, black)
         self.window.blit(text, pos)
+        self.timers[msg] -= 1
 
     def render_textbox(self, window, pos):
         margin = 15
@@ -93,6 +98,20 @@ class AppUI:
             if icon_coords[2] < event.pos[1] < icon_coords[3]:
                 return True
         return False
+    
+    def render_larger_icon(self, event):
+        if self.mouse_collide(self.coffee, self.center, event):
+            self.coffee = self.big_icon
+            self.center = self.get_center(self.coffee)
+        elif self.mouse_collide(self.coffeemaker, self.below_topright, event):
+            if self.show_upgrades:
+                self.textbox_pos = (
+                    event.pos[0] - self.images[3].get_width(), event.pos[1])
+                self.show_textbox = True
+        else:
+            self.coffee = self.images[0]
+            self.center = self.get_center(self.coffee)
+            self.show_textbox = False
 
     def fill_screen(self, color):
         self.window.fill(color)

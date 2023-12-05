@@ -44,7 +44,7 @@ class Main:
 
                     if event.key == pygame.K_s:
                         self.app.save_game()
-                        self.ui.timer = 2 * self.app.tickrate
+                        self.ui.timers["game_saved"] = 2*self.app.tickrate
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.ui.mouse_collide(self.ui.coffee, self.ui.center, event):
@@ -62,34 +62,25 @@ class Main:
                                 self.app.buy_upgrade(
                                     CoffeeMaker(), self.app.cost["coffee_maker"])
                                 self.ui.cost["coffee_maker"] *= 1.2
-
-                # Make the icon larger when hovering mouse over
+                            else:
+                                self.ui.timers["no_money"] = 1.5*self.app.tickrate
 
                 if event.type == pygame.MOUSEMOTION:
-                    if self.ui.mouse_collide(self.ui.coffee, self.ui.center, event):
-                        self.ui.coffee = self.ui.big_icon
-                        self.ui.center = self.ui.get_center(self.ui.coffee)
-                    elif self.ui.mouse_collide(self.ui.coffeemaker, self.ui.below_topright, event):
-                        if self.ui.show_upgrades:
-                            textbox_pos = (
-                                event.pos[0] - self.ui.images[3].get_width(), event.pos[1])
-                            self.ui.show_textbox = True
-                    else:
-                        self.ui.coffee = self.ui.images[0]
-                        self.ui.center = self.ui.get_center(self.ui.coffee)
-                        self.ui.show_textbox = False
+                    self.ui.render_larger_icon(event)
 
             self.ui.window.blit(self.ui.coffee, (self.ui.center))
             self.ui.window.blit(self.ui.bars, (self.ui.topright))
 
             self.ui.render_text(self.ui.window)
 
-            if self.ui.timer:
-                self.ui.render_game_saved()
-                self.ui.timer -= 1
+            if self.ui.timers["game_saved"]:
+                self.ui.render_with_timer("game_saved")
+            if self.ui.timers["no_money"]:
+                if event.type != pygame.ACTIVEEVENT and event.type != pygame.WINDOWLEAVE:
+                    self.ui.render_with_timer("no_money", event.pos)
 
             if self.ui.show_textbox:
-                self.ui.render_textbox(self.ui.window, textbox_pos)
+                self.ui.render_textbox(self.ui.window, self.ui.textbox_pos)
 
             self.app.apply_profit()
             self.ui.profit = self.app.profit
