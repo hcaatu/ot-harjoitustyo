@@ -11,6 +11,7 @@ Peli toimii samalla Aineopinteojen harjoitustyö: Ohjelmistotekniikka -kurssin p
 - [Vaatimusmäärittely](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 - [Changelog](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/changelog.md)
 - [Arkkitehtuurikuvaus](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+- [Release 1](https://github.com/hcaatu/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Asennus
 
