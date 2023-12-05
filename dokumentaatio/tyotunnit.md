@@ -11,5 +11,5 @@
 | 28.11. | 7    | pylint asennus, testien kirjoittaminen, git ongelmien ratkominen |
 | 30.11. | 1    | arkkitehtuurikaavion lisääminen|
 | 4.12. | 6    | uuden toiminnallisuuden lisääminen, vikojen korjaaminen|
-| 5.12. | 7    |refaktorointi, UI-elementtien lisäys, testikattavuuden lisäys|
+| 5.12. | 7    |refaktorointi, UI-elementtien lisäys, testikattavuuden lisäys, sekvenssikaavio|
 | yht | 44    | 
