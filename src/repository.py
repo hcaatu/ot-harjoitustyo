@@ -13,6 +13,7 @@ class SaveFile:
 class Repository:
     def __init__(self, file_path):
         self._path = file_path
+        self.loaded_file = SaveFile(0, {}, {}, 0)
 
     def delete_all(self):
         Path(self._path).touch()
@@ -36,38 +37,39 @@ class Repository:
             data = '0\ncoffee_maker,0;\ncoffee_maker,10;\n0'
             file.write(data)
 
+    def _split_save_data(self, index, row):
+        row = row.replace("\n", "")
+        if index == 0:
+            self.loaded_file.score = float(row)
+
+        elif index == 1:
+            parts = row.split(";")
+            for item in parts:
+                if item == '':
+                    break
+                upgrade = item.split(",")
+                self.loaded_file.upgrades[upgrade[0]] = int(upgrade[1])
+
+        elif index == 2:
+            parts = row.split(";")
+            for item in parts:
+                if item == '':
+                    break
+                cost = item.split(",")
+                self.loaded_file.cost[cost[0]] = float(cost[1])
+
+        elif index == 3:
+            self.loaded_file.time_played = float(row)
+
     def _read(self):
-        loaded_file = SaveFile(0, {}, {}, 0)
         self._ensure_file_exists()
 
         with open(self._path, encoding="utf-8") as file:
             index = 0
             for row in file:
-                row = row.replace("\n", "")
-                if index == 0:
-                    loaded_file.score = float(row)
-
-                elif index == 1:
-                    parts = row.split(";")
-                    for item in parts:
-                        if item == '':
-                            break
-                        upgrade = item.split(",")
-                        loaded_file.upgrades[upgrade[0]] = int(upgrade[1])
-
-                elif index == 2:
-                    parts = row.split(";")
-                    for item in parts:
-                        if item == '':
-                            break
-                        cost = item.split(",")
-                        loaded_file.cost[cost[0]] = float(cost[1])
-
-                elif index == 3:
-                    loaded_file.time_played = float(row)
-
+                self._split_save_data(index, row)
                 index += 1
-        return loaded_file
+        return self.loaded_file
 
     def _write(self, save_file: SaveFile):
         self._ensure_file_exists()

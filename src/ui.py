@@ -30,13 +30,14 @@ class AppUI:
         self.coffeemaker = self.images[2]
         self.textbox = self.images[3]
 
+
         self.big_icon = pygame.transform.scale_by(self.coffee, [1.2, 1.2])
 
         self.upgrades = {"coffee_maker": 0}
         self.cost = {"coffee_maker": CoffeeMaker().cost}
 
         self.center = self.get_center(self.coffee)
-
+        self.textbox_pos = [0, 0]
         self.safezone = 20
         self.topright = (
             self.resolution[0] - self.bars.get_width() - self.safezone, self.safezone)
@@ -74,7 +75,7 @@ class AppUI:
         black = (0, 0, 0)
         font = self.font
         window.blit(self.textbox, pos)
-        window.blit((font.render(f"Coffee maker", True, black)),
+        window.blit((font.render("Coffee maker", True, black)),
                     [margin + i for i in pos])
         if self.upgrades["coffee_maker"] != 0:
             count = ": " + str(self.upgrades["coffee_maker"])
@@ -98,7 +99,7 @@ class AppUI:
             if icon_coords[2] < event.pos[1] < icon_coords[3]:
                 return True
         return False
-    
+
     def render_ui_elements(self, event):
         if self.mouse_collide(self.coffee, self.center, event):
             self.coffee = self.big_icon
@@ -122,7 +123,6 @@ class AppUI:
             self.window.blit(self.coffeemaker, self.below_topright)
             if self.score < self.cost["coffee_maker"]:
                 self.window.blit(grey_box, self.below_topright)
-
 
     def fill_screen(self, color):
         self.window.fill(color)
