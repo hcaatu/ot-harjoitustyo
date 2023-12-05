@@ -77,7 +77,8 @@ class AppUI:
         window.blit((font.render(f"Coffee maker", True, black)),
                     [margin + i for i in pos])
         if self.upgrades["coffee_maker"] != 0:
-            window.blit((font.render(f": {self.upgrades["coffee_maker"]}", True, black)),
+            count = ": " + {self.upgrades["coffee_maker"]}
+            window.blit((font.render(count, True, black)),
                         (132 + pos[0], margin + pos[1]))
 # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
         decimal_format = "{:.2f}".format(self.cost["coffee_maker"]) # pylint: disable=consider-using-f-string

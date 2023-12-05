@@ -9,16 +9,14 @@ class Main:
         self.clock = pygame.time.Clock()
         self.app = App()
         self.ui = AppUI()
-        self.app.load_game()
         self.sync()
         self.update()
 
     def sync(self):
-        self.ui.cost = self.app.cost
         self.ui.profit = self.app.profit
         self.ui.upgrades = self.app.upgrades
         self.ui.cost = self.app.cost
-
+        
     def update(self):
         while self.running:
             self.ui.score = self.app.score
