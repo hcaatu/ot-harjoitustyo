@@ -15,3 +15,5 @@
 ## Viikko 5
 - Lisätty repository-luokka, joka käsittelee tiedon tallentamisen ja lukemisen
 - Lisätty save-ominaisuus, eli pelaaja voi tallentaa edistymisensä
+- lisätty uusia UI-elementtejä
+- lisätty testikattavuutta
