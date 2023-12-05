@@ -77,7 +77,7 @@ class AppUI:
         window.blit((font.render(f"Coffee maker", True, black)),
                     [margin + i for i in pos])
         if self.upgrades["coffee_maker"] != 0:
-            count = ": " + {self.upgrades["coffee_maker"]}
+            count = ": " + str(self.upgrades["coffee_maker"])
             window.blit((font.render(count, True, black)),
                         (132 + pos[0], margin + pos[1]))
 # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
