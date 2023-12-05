@@ -1,7 +1,9 @@
 # Kahvi clicker
 
 Pelin tavoitteena on klikkailla kahvikuvaketta, ostaa päivityksiä ja siten kerryttää entistä enemmän kahvia pankkiin.
+
 Pelin voi tallentaa painamalla näppäimistöstä S.
+
 Peli toimii samalla Aineopinteojen harjoitustyö: Ohjelmistotekniikka -kurssin projektina. 
 
 ## Dokumentaatio
