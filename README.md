@@ -28,7 +28,7 @@ poetry run invoke start
 
 ### Testaus
 
-Ohjelman testaus tapahtuu suorittamalla komennon:
+Ohjelman testaus tapahtuu suorittamalla komento:
 
 ```bash
 poetry run invoke test
