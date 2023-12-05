@@ -25,10 +25,6 @@ class AppUI:
                 os.path.join(dirname, "assets", name + ".png")
             ))
 
-        self.images_rect = []
-        for image in self.images:
-            self.images_rect.append(image.get_rect())
-
         self.coffee = self.images[0]
         self.bars = self.images[1]
         self.coffeemaker = self.images[2]
@@ -64,8 +60,11 @@ class AppUI:
             pos = (self.safezone, self.resolution[1] - size - self.safezone)
             text = font.render("Game saved!", True, black)
         elif msg == "no_money":
-            pos = (pos[0] - 220, pos[1] - 33)
+            pos = (self.textbox_pos[0] + 5, self.textbox_pos[1] - 35)
             text = font.render("Not enough coffee!", True, black)
+            if self.score >= self.cost["coffee_maker"]:
+                self.timers[msg] = 0
+                return
         self.window.blit(text, pos)
         self.timers[msg] -= 1
 
@@ -99,7 +98,7 @@ class AppUI:
                 return True
         return False
     
-    def render_larger_icon(self, event):
+    def render_ui_elements(self, event):
         if self.mouse_collide(self.coffee, self.center, event):
             self.coffee = self.big_icon
             self.center = self.get_center(self.coffee)
@@ -112,6 +111,17 @@ class AppUI:
             self.coffee = self.images[0]
             self.center = self.get_center(self.coffee)
             self.show_textbox = False
+
+    def render_upgrades(self):
+        grey_box = pygame.surface.Surface(
+            (self.images[2].get_width(), self.images[2].get_height()))
+        grey_box.fill((255,255,255))
+        grey_box.set_alpha(100)
+        if self.show_upgrades:
+            self.window.blit(self.coffeemaker, self.below_topright)
+            if self.score < self.cost["coffee_maker"]:
+                self.window.blit(grey_box, self.below_topright)
+
 
     def fill_screen(self, color):
         self.window.fill(color)

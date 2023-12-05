@@ -2,7 +2,7 @@ import unittest
 from app import App
 from upgrade import CoffeeMaker
 
-class TestUI(unittest.TestCase):
+class TestApp(unittest.TestCase):
     def setUp(self):
         self.app = App()
         self.app.score = 100

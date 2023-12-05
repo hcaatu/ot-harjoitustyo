@@ -25,9 +25,7 @@ class Main:
             grey = (200, 200, 200)
             self.ui.fill_screen(grey)
 
-            if self.ui.show_upgrades:
-                self.ui.window.blit(self.ui.coffeemaker,
-                                    (self.ui.below_topright))
+            self.ui.render_upgrades()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -66,7 +64,7 @@ class Main:
                                 self.ui.timers["no_money"] = 1.5*self.app.tickrate
 
                 if event.type == pygame.MOUSEMOTION:
-                    self.ui.render_larger_icon(event)
+                    self.ui.render_ui_elements(event)
 
             self.ui.window.blit(self.ui.coffee, (self.ui.center))
             self.ui.window.blit(self.ui.bars, (self.ui.topright))
@@ -75,8 +73,11 @@ class Main:
 
             if self.ui.timers["game_saved"]:
                 self.ui.render_with_timer("game_saved")
-            if self.ui.timers["no_money"]:
-                if event.type != pygame.ACTIVEEVENT and event.type != pygame.WINDOWLEAVE:
+            if self.ui.timers["no_money"] and self.ui.show_textbox:
+                if event.type in (
+                    pygame.MOUSEBUTTONUP,
+                    pygame.MOUSEBUTTONDOWN,
+                    pygame.MOUSEMOTION):
                     self.ui.render_with_timer("no_money", event.pos)
 
             if self.ui.show_textbox:

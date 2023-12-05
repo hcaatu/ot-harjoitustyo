@@ -14,8 +14,9 @@ class Repository:
     def __init__(self, file_path):
         self._path = file_path
 
-    def find_all(self):
-        return self._read()
+    def delete_all(self):
+        Path(self._path).touch()
+        os.remove(self._path)
 
     def save(self, save_file):
         self._write(save_file)
