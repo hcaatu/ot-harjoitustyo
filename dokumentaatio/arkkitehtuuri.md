@@ -1,3 +1,3 @@
 # Arkkitehtuurikuvaus
 
-![package_diagram](https://github.com/hcaatu/ot-harjoitustyo/assets/128474929/4b172427-7b0d-47e8-8fd7-7a519826a289)
+![package-diagram](https://github.com/hcaatu/ot-harjoitustyo/assets/128474929/70b61867-6717-4a07-ad2f-8a48b688957c)
