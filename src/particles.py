@@ -1,28 +1,70 @@
+import os
 import random
-from ui import AppUI
+import pygame
+
+# path to the directory of this file
+dirname = os.path.dirname(__file__)
 
 class Particle:
+    """This class is in charge of generating and calculating the positions of generated particles.
+    """
     def __init__(self):
-        self.timer = 0
-        self.ui = AppUI()
-        self.particles = self.ui.particles
-        self.particles_parameters = [0, 0, 0, 0]
+        """Constructor function for the class.
+        """
+        self.particles = {}
+        self.load_images()
+        self.timestep = 0
+        self.a_value = 0
+        self.direction = 0
+        self.noise = 0
+        self.img = self.choose_image()
+        self.alpha = 255
+        self.choose_parameters()
+        
+    def load_images(self):
+        """Loads images from assets.
+        """
+        filenames = ["beans", "mug", "caffeine"]
+        for name in filenames:
+            self.particles[name] = (pygame.image.load(
+                os.path.join(dirname, "assets", name + ".png")
+            ))
 
-    def choose_a_value(self):
-        a_value = random.randrange(-25, 25)
-        if a_value < 0:
-            return (a_value, -1)
-        return (a_value, 1)
-    
+    def choose_parameters(self):
+        """Chooses random parameters for a particle effect.
+        """
+        self.a_value = random.randrange(-15, 0)
+        self.direction = random.choice((-1, 1))
+        self.noise = random.randrange(0, 50)
+
     def choose_image(self):
+        """Chooses an image at random for a particle.
+
+        Returns:
+            pygame.surface: Image
+        """
         return random.choice(list(self.particles.values()))
 
-    def calculate_pos(self, t, a_value, direction):
-        trajectory = t**2 + a_value * t
-        return (self.ui.center[0] + 10*t * direction, self.ui.center[1] + trajectory)
+    def calculate_pos(self, particle):
+        """Calculates the current position for a particle when falling. Trajectory is calculated by modeling a parabola.
 
-    def render_particles(self, t, a_value, direction, img):
-        if self.timer:
-            pos = self.calculate_pos(t, a_value, direction)
-            self.ui.window.blit(img, pos)
-            self.timer -= 1
+        Args:
+            particle (Particle object)
+
+        Returns:
+            tuple: Coordinates for the current position.
+        """
+        trajectory = particle.timestep**2 + particle.a_value * particle.timestep
+        center = (581, 278)
+        return (center[0] + particle.noise + 5*particle.timestep * particle.direction, center[1] + trajectory)
+
+    def render_particle(self, particle, window):
+        """Renders a particle given the parameters and adjusts them accordingly.
+
+        Args:
+            parameters (particle):
+            window (pygame.display):
+        """
+
+        pos = self.calculate_pos(particle.timestep, particle.a_value, particle.direction, particle.noise)
+        window.blit(particle.img, pos)

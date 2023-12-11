@@ -1,8 +1,6 @@
 import os
 from pathlib import Path
 
-dirname = os.path.dirname(__file__)
-
 class SaveFile:
     def __init__(self, score: int, upgrades: dict, cost :dict, time_played: int):
         self.score = score
@@ -30,8 +28,6 @@ class Repository:
         if Path(self._path).exists():
             return
         Path(self._path).touch()
-
-        # Initialize save data structure, if doesn't exist
 
         with open(self._path, "w", encoding="utf-8") as file:
             data = '0\ncoffee_maker,0;\ncoffee_maker,10;\n0'
