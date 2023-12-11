@@ -1,10 +1,10 @@
 import os
 import pygame
+import random
 from upgrade import CoffeeMaker
 
 # path to the directory of this file
 dirname = os.path.dirname(__file__)
-
 
 class AppUI:
     def __init__(self):
@@ -15,34 +15,32 @@ class AppUI:
         self.profit = 0
         self.show_upgrades = False
         self.show_textbox = False
-        self.timers = {"game_saved": 0, "no_money": 0}
+        self.particles_parameters = [0 for i in range(5)]
+        self.timers = {"game_saved": 0, "no_money": 0, "particle": 0}
         self.font = pygame.font.SysFont("Arial", 24)
 
-        self.images = []
-        filenames = ["coffee", "bars", "coffee_maker", "textbox"]
+        self.images = {}
+        filenames = ["coffee", "bars", "coffee_maker", "textbox", "beans", "mug", "caffeine"]
         for name in filenames:
-            self.images.append(pygame.image.load(
+            self.images[name] = (pygame.image.load(
                 os.path.join(dirname, "assets", name + ".png")
             ))
 
-        self.coffee = self.images[0]
-        self.bars = self.images[1]
-        self.coffeemaker = self.images[2]
-        self.textbox = self.images[3]
-
-
-        self.big_icon = pygame.transform.scale_by(self.coffee, [1.2, 1.2])
+        self.images["small_coffee"] = self.images["coffee"]
+        self.images["big_coffee"] = pygame.transform.scale_by(self.images["coffee"], [1.2, 1.2])
+        self.particles = {
+            k: v for k, v in self.images.items() if k in {'beans', 'mug', 'caffeine'}}
 
         self.upgrades = {"coffee_maker": 0}
         self.cost = {"coffee_maker": CoffeeMaker().cost}
 
-        self.center = self.get_center(self.coffee)
+        self.center = self.get_center(self.images["coffee"])
         self.textbox_pos = [0, 0]
         self.safezone = 20
         self.topright = (
-            self.resolution[0] - self.bars.get_width() - self.safezone, self.safezone)
+            self.resolution[0] - self.images["bars"].get_width() - self.safezone, self.safezone)
         self.below_topright = (
-            self.topright[0], self.topright[1] + self.bars.get_height() + 2)
+            self.topright[0], self.topright[1] + self.images["bars"].get_height() + 2)
 
     def render_text(self, window):
         black = (0, 0, 0)
@@ -74,7 +72,7 @@ class AppUI:
         leading = 26
         black = (0, 0, 0)
         font = self.font
-        window.blit(self.textbox, pos)
+        window.blit(self.images["textbox"], pos)
         window.blit((font.render("Coffee maker", True, black)),
                     [margin + i for i in pos])
         if self.upgrades["coffee_maker"] != 0:
@@ -101,26 +99,49 @@ class AppUI:
         return False
 
     def render_ui_elements(self, event):
-        if self.mouse_collide(self.coffee, self.center, event):
-            self.coffee = self.big_icon
-            self.center = self.get_center(self.coffee)
-        elif self.mouse_collide(self.coffeemaker, self.below_topright, event):
+        if self.mouse_collide(self.images["coffee"], self.center, event):
+            self.images["coffee"] = self.images["big_coffee"]
+            self.center = self.get_center(self.images["coffee"])
+        elif self.mouse_collide(self.images["coffee_maker"], self.below_topright, event):
             if self.show_upgrades:
                 self.textbox_pos = (
-                    event.pos[0] - self.images[3].get_width(), event.pos[1])
+                    event.pos[0] - self.images["textbox"].get_width(), event.pos[1])
                 self.show_textbox = True
         else:
-            self.coffee = self.images[0]
-            self.center = self.get_center(self.coffee)
+            self.images["coffee"] = self.images["small_coffee"]
+            self.center = self.get_center(self.images["coffee"])
             self.show_textbox = False
+
+    def choose_parameters(self):
+        a_value = random.randrange(-15, 0)
+        direction = random.choice((-1, 1))
+        return (a_value, direction)
+    
+    def choose_image(self):
+        return random.choice(list(self.particles.values()))
+
+    def calculate_pos(self, t, a_value, direction):
+        trajectory = t**2 + a_value * t
+        return (self.center[0] + 10*t * direction, self.center[1] + trajectory)
+
+    def render_particles(self, t, a_value, direction, img, alpha):
+        if self.timers["particle"]:
+            pos = self.calculate_pos(t, a_value, direction)
+            self.window.blit(img, pos)
+            self.timers["particle"] -= 1
+            self.particles_parameters[4] -= 5
+            self.particles_parameters[3].set_alpha(
+                self.particles_parameters[4]
+                )
 
     def render_upgrades(self):
         grey_box = pygame.surface.Surface(
-            (self.images[2].get_width(), self.images[2].get_height()))
+            (self.images["coffee_maker"].get_width(),
+              self.images["coffee_maker"].get_height()))
         grey_box.fill((255,255,255))
         grey_box.set_alpha(100)
         if self.show_upgrades:
-            self.window.blit(self.coffeemaker, self.below_topright)
+            self.window.blit(self.images["coffee_maker"], self.below_topright)
             if self.score < self.cost["coffee_maker"]:
                 self.window.blit(grey_box, self.below_topright)
 

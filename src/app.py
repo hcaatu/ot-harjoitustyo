@@ -15,10 +15,13 @@ class App:
         self.repository = Repository(os.path.join(dirname, "..", "data", "data.csv"))
 
     def buy_upgrade(self, upgrade, cost):
-        self.score -= cost
-        self.upgrades[upgrade.name] += 1
-        self.cost[upgrade.name] *= 1.2
-        self.calculate_profit()
+        success = self.score >= cost
+        if success:
+            self.score -= cost
+            self.upgrades[upgrade.name] += 1
+            self.cost[upgrade.name] *= 1.2
+            self.calculate_profit()
+        return success
 
     def calculate_profit(self):
         self.profit = 1
