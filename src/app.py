@@ -1,4 +1,4 @@
-import upgrade
+import upgrades
 from repository import SaveFile, Repository
 
 class App:
@@ -12,17 +12,17 @@ class App:
         """
         self.score = 0
         self.tickrate = 60
-        self.data = [upgrade.CoffeeMaker(), upgrade.AeroPress()]
+        self.data = [upgrades.CoffeeMaker(), upgrades.AeroPress()]
         self.upgrades = {"coffee_maker": 0, "aeropress": 0}
         self.cost = {"coffee_maker": self.data[0].cost,
                      "aeropress": self.data[1].cost}
         self.click = 1
         self.profit = 0
-        self.time_played = 0
         self.repository = Repository("data/data.csv")
 
     def buy_upgrade(self, upgrade, cost):
-        """Used to check if there is enough score to buy an upgrade, and changing the in-game values after buying.
+        """Used to check if there is enough score to buy an upgrade, 
+        and changing the in-game values after buying.
 
         Args:
             upgrade (Upgrade object): Contains upgrade data
@@ -64,7 +64,7 @@ class App:
         Returns:
             file (SaveFile object): Current save file.
         """
-        file = SaveFile(self.score, self.upgrades, self.cost, self.time_played)
+        file = SaveFile(self.score, self.upgrades, self.cost)
         self.repository.save(file)
         return file
 
@@ -75,5 +75,4 @@ class App:
         self.score = file.score
         self.upgrades = file.upgrades
         self.cost = file.cost
-        self.time_played = file.time_played
         self.calculate_profit()

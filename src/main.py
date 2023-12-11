@@ -1,7 +1,7 @@
 import pygame
 from ui import AppUI
 from app import App
-from upgrade import CoffeeMaker
+from upgrades import CoffeeMaker
 from particles import Particle
 
 class Main:
@@ -63,7 +63,6 @@ class Main:
                         self.ui.cost[upgrade.name] *= 1.1
                     else:
                         self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
-                        print(upgrade.name)
 
         if event.type == pygame.MOUSEMOTION:
             self.ui.render_motion_elements(event)
@@ -89,12 +88,10 @@ class Main:
                     self.ui.render_with_timer(upgrade.name, event.pos)
 
             if self.ui.show["textbox"]:
-                self.ui.render_textbox(self.ui.textbox_pos)
+                self.ui.render_textbox(self.ui.pos["textbox"])
 
             self.app.apply_profit()
             self.ui.profit = self.app.profit
-
-            self.app.time_played += 1/self.app.tickrate
 
             pygame.display.update()
             self.clock.tick(self.app.tickrate)

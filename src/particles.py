@@ -20,7 +20,7 @@ class Particle:
         self.img = self.choose_image()
         self.alpha = 255
         self.choose_parameters()
-        
+
     def load_images(self):
         """Loads images from assets.
         """
@@ -46,7 +46,8 @@ class Particle:
         return random.choice(list(self.particles.values()))
 
     def calculate_pos(self, particle):
-        """Calculates the current position for a particle when falling. Trajectory is calculated by modeling a parabola.
+        """Calculates the current position for a particle when falling. 
+        Trajectory is calculated by modeling a parabola.
 
         Args:
             particle (Particle object)
@@ -54,9 +55,13 @@ class Particle:
         Returns:
             tuple: Coordinates for the current position.
         """
-        trajectory = particle.timestep**2 + particle.a_value * particle.timestep
+        t = particle.timestep
+        a = particle.a_value
+        noise = particle.noise
+        direction = particle.direction
+        trajectory = t**2 + a * t
         center = (581, 278)
-        return (center[0] + particle.noise + 5*particle.timestep * particle.direction, center[1] + trajectory)
+        return (center[0] + noise + 5*t * direction, center[1] + trajectory)
 
     def render_particle(self, particle, window):
         """Renders a particle given the parameters and adjusts them accordingly.
@@ -65,6 +70,5 @@ class Particle:
             parameters (particle):
             window (pygame.display):
         """
-
-        pos = self.calculate_pos(particle.timestep, particle.a_value, particle.direction, particle.noise)
+        pos = self.calculate_pos(particle)
         window.blit(particle.img, pos)

@@ -1,6 +1,6 @@
 import os
 import pygame
-import upgrade
+import upgrades
 from particles import Particle
 
 # path to the directory of this file
@@ -24,7 +24,7 @@ class AppUI:
 
         self.load_images()
 
-        self.data = [upgrade.CoffeeMaker(), upgrade.AeroPress()]
+        self.data = [upgrades.CoffeeMaker(), upgrades.AeroPress()]
 
         self.score = 0
         self.profit = 0
@@ -35,7 +35,7 @@ class AppUI:
         self.pos = {}
         self.safezone = 18
         self.calculate_positions()
-        
+
     def load_images(self):
         """Load images using pygame built in image.load function.
         """
@@ -82,7 +82,7 @@ class AppUI:
             pos = (self.safezone, self.resolution[1] - size - self.safezone)
             text = font.render("Game saved!", True, black)
         else:
-            pos = (self.textbox_pos[0] + 5, self.textbox_pos[1] - 35)
+            pos = (self.pos["textbox"][0] + 5, self.pos["textbox"][1] - 35)
             text = font.render("Not enough coffee!", True, black)
             if self.score >= self.cost[msg]:
                 self.timers[msg] = 0
@@ -102,30 +102,31 @@ class AppUI:
         font = self.font
         self.window.blit(self.images["textbox"], pos)
 
-        if self.show["textbox"] == "coffee_maker":
-            display_data = ["Coffee maker", 0, "Makes more coffee"]
+        display_data = ["Coffee maker", 0, "Makes more coffee"]
         if self.show["textbox"] == "aeropress":
             display_data = ["Aeropress", 1, "Presses with air :o"]
-        
-        self.window.blit((font.render(display_data[0], True, black)),
-                    [margin + i for i in pos])
-        
+
         if self.upgrades[self.show["textbox"]] != 0:
-            count = ": " + str(self.upgrades[self.show["textbox"]])
+            count = display_data[0] + ": " + str(self.upgrades[self.show["textbox"]])
             self.window.blit((font.render(count, True, black)),
-                        (132 + pos[0], margin + pos[1]))
-            
-        # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
+                        [margin + i for i in pos])
+        else:
+            self.window.blit((font.render(display_data[0], True, black)),
+                    [margin + i for i in pos])
+
+    # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
 
         decimal_format = "{:.2f}".format(self.cost[self.show["textbox"]]) # pylint: disable=consider-using-f-string
 
         self.window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
             pos[0] + margin, pos[1] + margin + leading))
-        
+
         self.window.blit((
-            font.render(f"Produces {self.data[display_data[1]].profit} coffee per second", True, black)), (
-            pos[0] + 15, pos[1] + margin + 2 * leading))
-        
+            font.render(f"Produces {self.data[display_data[1]].profit} coffee per second",
+                        True, black)),
+                        (pos[0] + 15, pos[1] + margin + 2 * leading)
+            )
+
         italic = pygame.font.SysFont("Arial", 24, False, True)
 
         self.window.blit((italic.render(display_data[2], True, black)),
@@ -162,7 +163,7 @@ class AppUI:
                 count += 1
                 continue
             if self.show["upgrades"]:
-                self.textbox_pos = (
+                self.pos["textbox"] = (
                     event.pos[0] - self.images["textbox"].get_width(), event.pos[1])
                 self.show["textbox"] = upgrade.name
 
@@ -178,7 +179,7 @@ class AppUI:
             self.images["coffee"] = self.images["small_coffee"]
             self.pos["center"] = self.get_center(self.images["coffee"])
 
-    
+
     def render_particles(self, particle):
         """Renders particles using the Particle class and tweaks parameters accordingly.
 
@@ -189,7 +190,7 @@ class AppUI:
         self.window.blit(particle.img, pos)
         self.timers["particle"] -= 1
         particle.timestep += 0.5
-        particle.alpha -= 3
+        particle.alpha -= 5
         particle.img.set_alpha(particle.alpha)
 
     def render_elements(self):

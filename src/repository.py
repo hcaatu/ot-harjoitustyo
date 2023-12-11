@@ -2,16 +2,15 @@ import os
 from pathlib import Path
 
 class SaveFile:
-    def __init__(self, score: int, upgrades: dict, cost :dict, time_played: int):
+    def __init__(self, score: int, upgrades: dict, cost :dict):
         self.score = score
         self.upgrades = upgrades
         self.cost = cost
-        self.time_played = time_played
 
 class Repository:
     def __init__(self, file_path):
         self._path = file_path
-        self.loaded_file = SaveFile(0, {}, {}, 0)
+        self.loaded_file = SaveFile(0, {}, {})
 
     def delete_all(self):
         Path(self._path).touch()
@@ -30,7 +29,7 @@ class Repository:
         Path(self._path).touch()
 
         with open(self._path, "w", encoding="utf-8") as file:
-            data = '0\ncoffee_maker,0;aeropress,0;\ncoffee_maker,10;aeropress,100;\n0'
+            data = '0\ncoffee_maker,0;aeropress,0;\ncoffee_maker,10;aeropress,100;'
             file.write(data)
 
     def _split_save_data(self, index, row):
@@ -54,9 +53,6 @@ class Repository:
                 cost = item.split(",")
                 self.loaded_file.cost[cost[0]] = float(cost[1])
 
-        elif index == 3:
-            self.loaded_file.time_played = float(row)
-
     def _read(self):
         self._ensure_file_exists()
 
@@ -78,8 +74,7 @@ class Repository:
             cost = ""
             for key, item in save_file.cost.items():
                 cost = cost + f"{key},{item};"
-            time_played = str(save_file.time_played)
 
-            data = score + "\n" + uprgades + "\n" + cost + "\n" + time_played
+            data = score + "\n" + uprgades + "\n" + cost
 
             file.write(data)
