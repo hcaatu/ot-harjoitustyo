@@ -11,5 +11,8 @@
 | 28.11. | 7    | pylint asennus, testien kirjoittaminen, git ongelmien ratkominen |
 | 30.11. | 1    | arkkitehtuurikaavion lisääminen|
 | 4.12. | 6    | uuden toiminnallisuuden lisääminen, vikojen korjaaminen|
-| 5.12. | 7    |refaktorointi, UI-elementtien lisäys, testikattavuuden lisäys, sekvenssikaavio|
-| yht | 44    | 
+| 5.12. | 7    | refaktorointi, UI-elementtien lisäys, testikattavuuden lisäys, sekvenssikaavio|
+| 7.12. | 1    | perehtyminen docstringeihin |
+| 8.12. | 4    | particle-efektin koodaaminen, refaktorointi |
+| 11.12. | 8   | partikkeleiden koodaaminen, docstringien lisääminen, uuden upgraden lisäys, aiemman koodin parantelu |
+| yht | 57   | 
