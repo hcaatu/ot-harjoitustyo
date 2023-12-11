@@ -1,4 +1,4 @@
-from upgrade import CoffeeMaker
+import upgrade
 from repository import SaveFile, Repository
 
 class App:
@@ -12,9 +12,12 @@ class App:
         """
         self.score = 0
         self.tickrate = 60
-        self.upgrades = {"coffee_maker": 0}
-        self.cost = {"coffee_maker": CoffeeMaker().cost}
-        self.profit = None
+        self.data = [upgrade.CoffeeMaker(), upgrade.AeroPress()]
+        self.upgrades = {"coffee_maker": 0, "aeropress": 0}
+        self.cost = {"coffee_maker": self.data[0].cost,
+                     "aeropress": self.data[1].cost}
+        self.click = 1
+        self.profit = 0
         self.time_played = 0
         self.repository = Repository("data/data.csv")
 
@@ -39,12 +42,15 @@ class App:
     def calculate_profit(self):
         """Calculates coffee per second based on purchased upgrades.
         """
-        self.profit = 1
-        for upgrade, count in self.upgrades.items():
-            if upgrade == "coffee_maker":
-                gain = CoffeeMaker().profit
-            self.profit *= gain
-            self.profit *= count
+        self.profit = 0
+        for upgrade in self.data:
+            if self.upgrades[upgrade.name] != 0:
+                self.profit += upgrade.profit * self.upgrades[upgrade.name]
+
+    def apply_score(self):
+        """Increases score per "by-click" value.
+        """
+        self.score += self.click
 
     def apply_profit(self):
         """Increases score by coffee per second.

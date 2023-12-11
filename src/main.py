@@ -31,33 +31,39 @@ class Main:
                     CoffeeMaker(), self.app.cost["coffee_maker"]):
                     self.ui.cost["coffee_maker"] *= 1.2
                 else:
-                    self.ui.timers["no_money"] = 1.5*self.app.tickrate
+                    self.ui.timers["coffee_maker"] = 1.5*self.app.tickrate
 
             if event.key == pygame.K_s:
                 self.app.save_game()
                 self.ui.timers["game_saved"] = 2*self.app.tickrate
 
+            # cheat
+            if event.key == pygame.K_g:
+                self.app.score = 1000
+
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.ui.mouse_collide(self.ui.images["coffee"], self.ui.center, event):
-                self.app.score += 1
+            if self.ui.mouse_collide(self.ui.images["coffee"], self.ui.pos["center"], event):
+                self.app.apply_score()
                 self.ui.timers["particle"] += 2*self.app.tickrate
                 self.ui.particles.append(Particle())
 
-            if self.ui.mouse_collide(self.ui.images["bars"], self.ui.topright, event):
+            if self.ui.mouse_collide(self.ui.images["bars"], self.ui.pos["upgrade0"], event):
                 if self.ui.show["upgrades"]:
                     self.ui.show["upgrades"] = False
                 else:
                     self.ui.show["upgrades"] = True
 
-            if self.ui.mouse_collide(self.ui.images["coffee_maker"],
-                                     self.ui.below_topright, event):
-                if not self.ui.show["upgrades"]:
-                    return
-                if self.app.buy_upgrade(
-                    CoffeeMaker(), self.app.cost["coffee_maker"]):
-                    self.ui.cost["coffee_maker"] *= 1.2
-                else:
-                    self.ui.timers["no_money"] = 1.5*self.app.tickrate
+            for upgrade in self.app.data:
+                if self.ui.mouse_collide(self.ui.images[upgrade.name],
+                                        self.ui.pos[upgrade.name], event):
+                    if not self.ui.show["upgrades"]:
+                        return
+                    if self.app.buy_upgrade(
+                        upgrade, self.app.cost[upgrade.name]):
+                        self.ui.cost[upgrade.name] *= 1.1
+                    else:
+                        self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
+                        print(upgrade.name)
 
         if event.type == pygame.MOUSEMOTION:
             self.ui.render_motion_elements(event)
@@ -65,8 +71,7 @@ class Main:
     def update(self):
         while self.running:
             self.sync()
-            grey = (200, 200, 200)
-            self.ui.fill_screen(grey)
+            self.ui.fill_screen()
 
             for event in pygame.event.get():
                 self.handle_events(event)
@@ -76,11 +81,12 @@ class Main:
 
             if self.ui.timers["game_saved"]:
                 self.ui.render_with_timer("game_saved")
-            if self.ui.timers["no_money"] and self.ui.show["textbox"]:
-                self.ui.render_with_timer("no_money", event.pos)   
             if self.ui.timers["particle"]:
                 for p in self.ui.particles:
                     self.ui.render_particles(p)
+            for upgrade in self.app.data:
+                if self.ui.timers[upgrade.name] and self.ui.show["textbox"]:
+                    self.ui.render_with_timer(upgrade.name, event.pos)
 
             if self.ui.show["textbox"]:
                 self.ui.render_textbox(self.ui.textbox_pos)

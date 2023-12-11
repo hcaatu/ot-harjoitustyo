@@ -30,7 +30,7 @@ class Repository:
         Path(self._path).touch()
 
         with open(self._path, "w", encoding="utf-8") as file:
-            data = '0\ncoffee_maker,0;\ncoffee_maker,10;\n0'
+            data = '0\ncoffee_maker,0;aeropress,0;\ncoffee_maker,10;aeropress,100;\n0'
             file.write(data)
 
     def _split_save_data(self, index, row):
