@@ -17,3 +17,9 @@
 - Lisätty save-ominaisuus, eli pelaaja voi tallentaa edistymisensä painamalla s
 - lisätty uusia UI-elementtejä
 - lisätty testikattavuutta
+
+## Viikko 6
+- Lisätty particle-efekti kuppia klikatessa
+- Lisätty uusi upgrade
+- Lisätty docstringejä koodin sekaan
+- Tehty koodista päivitettävämää ja luettavampaa
