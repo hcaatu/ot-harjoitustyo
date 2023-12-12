@@ -23,4 +23,5 @@
 - Lisätty uusi upgrade
 - Lisätty docstringejä koodin sekaan
 - Lisätty UI-elementtejä
+- Lisätty satunnaisesti ilmestyvä kultainen kahvi, jota klikkaamalla saa suuren määrän scorea
 - Tehty koodista päivitettävämää ja luettavampaa
