@@ -22,4 +22,5 @@
 - Lisätty particle-efekti kuppia klikatessa
 - Lisätty uusi upgrade
 - Lisätty docstringejä koodin sekaan
+- Lisätty UI-elementtejä
 - Tehty koodista päivitettävämää ja luettavampaa
