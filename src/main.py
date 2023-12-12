@@ -2,6 +2,7 @@ import pygame
 from ui import AppUI
 from app import App
 from particles import Particle
+from golden import Golden
 
 class Main:
     def __init__(self):
@@ -9,6 +10,7 @@ class Main:
         self.clock = pygame.time.Clock()
         self.app = App()
         self.ui = AppUI()
+        self.golden = Golden()
         self.app.load_game()
         self.update()
 
@@ -38,6 +40,10 @@ class Main:
                 self.app.apply_score()
                 self.ui.particles.append(Particle())
 
+            if self.ui.mouse_collide(self.ui.images["golden"], self.ui.pos["golden"], event):
+                self.app.golden_click()
+                self.ui.timers["golden"] = 0
+
             if self.ui.mouse_collide(self.ui.images["bars"], self.ui.pos["upgrade0"], event):
                 if self.ui.show["upgrades"]:
                     self.ui.show["upgrades"] = False
@@ -45,15 +51,16 @@ class Main:
                     self.ui.show["upgrades"] = True
 
             for upgrade in self.app.data:
-                if self.ui.mouse_collide(self.ui.images[upgrade.name],
+                if not self.ui.mouse_collide(self.ui.images[upgrade.name],
                                         self.ui.pos[upgrade.name], event):
-                    if not self.ui.show["upgrades"]:
-                        return
-                    if self.app.buy_upgrade(
-                        upgrade, self.app.cost[upgrade.name]):
-                        self.ui.cost[upgrade.name] *= 1.1
-                    else:
-                        self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
+                    return
+                if not self.ui.show["upgrades"]:
+                    return
+                if self.app.buy_upgrade(
+                    upgrade, self.app.cost[upgrade.name]):
+                    self.ui.cost[upgrade.name] *= 1.1
+                else:
+                    self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
 
         if event.type == pygame.MOUSEMOTION:
             self.ui.render_motion_elements(event)
@@ -68,10 +75,11 @@ class Main:
 
             self.ui.render_text()
             self.ui.render_elements()
-            self.ui.black_out_upgrades()
 
             if self.ui.timers["game_saved"]:
                 self.ui.render_with_timer("game_saved")
+            if self.ui.timers["golden"]:
+                self.ui.render_golden_coffee()
             for p in self.ui.particles:
                 self.ui.render_particles(p)
             for upgrade in self.app.data:
@@ -82,7 +90,12 @@ class Main:
                 self.ui.render_textbox(self.ui.pos["textbox"])
 
             self.app.apply_profit()
-            self.ui.profit = self.app.profit
+            
+            if not self.ui.timers["golden"]:
+                golden = self.golden.generate()
+                if golden:
+                    self.ui.timers["golden"] += 7*self.app.tickrate
+                    self.ui.pos["golden"] = golden
 
             pygame.display.update()
             self.clock.tick(self.app.tickrate)

@@ -1,4 +1,5 @@
 import upgrades
+from golden import Golden
 from repository import SaveFile, Repository
 
 class App:
@@ -57,6 +58,12 @@ class App:
         """
         if self.profit:
             self.score += self.profit / self.tickrate
+
+    def golden_click(self):
+        if self.profit == 0:
+            self.score += 60
+        else:
+            self.score += 60 * self.profit
 
     def save_game(self):
         """Uses the Repository class to generate data.csv and write game data into the file.

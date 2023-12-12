@@ -13,7 +13,7 @@ class ImageLoader:
         Returns:
             self.images (dict): Contains the names and surface objects of images.
         """
-        filenames = ["coffee", "bars", "coffee_maker", "textbox", "aeropress"]
+        filenames = ["coffee", "bars", "coffee_maker", "textbox", "aeropress", "golden"]
         for name in filenames:
             self.images[name] = (pygame.image.load(
                 os.path.join(dirname, "assets", name + ".png")
@@ -34,3 +34,13 @@ class ImageLoader:
                 os.path.join(dirname, "assets", name + ".png")
             ))
         return self.images
+    
+    def load_golden_coffee(self):
+        """Loads the golden coffee icon.
+
+        Returns:
+            image: pygame.Surface
+        """
+        filename = "golden.png"
+        image = (pygame.image.load(os.path.join(dirname, "assets", filename)))
+        return image

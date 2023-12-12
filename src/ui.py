@@ -1,7 +1,7 @@
 import pygame
 import upgrades
-from math import sqrt
 from particles import Particle
+from golden import Golden
 from image_loader import ImageLoader
 
 class AppUI:
@@ -17,7 +17,7 @@ class AppUI:
         self.images = ImageLoader().load_images()
         self.particles = []
         self.show = {"textbox" : False, "upgrades" : False}
-        self.timers = {"game_saved": 0, "coffee_maker": 0, "aeropress": 0, "particle": 0}
+        self.timers = {"game_saved": 0, "coffee_maker": 0, "aeropress": 0, "golden": 0}
         self.font = pygame.font.SysFont("Arial", 24)
 
         self.data = [upgrades.CoffeeMaker(), upgrades.AeroPress()]
@@ -42,6 +42,7 @@ class AppUI:
             self.resolution[0] - self.images["bars"].get_width() - self.safezone, self.safezone)
         self.pos["coffee_maker"] = (self.pos["upgrade0"][0], self.pos["upgrade0"][1] + 86)
         self.pos["aeropress"] = (self.pos["coffee_maker"][0], self.pos["coffee_maker"][1] + 86)
+        self.pos["golden"] = [-1000, -1000]
 
     def render_text(self):
         """Renders text for a given window.
@@ -77,7 +78,7 @@ class AppUI:
         self.timers[msg] -= 1
 
     def render_textbox(self, pos):
-        """Renders a info box for an upgrade when hovering over.
+        """Renders an info box for an upgrade when hovering over.
 
         Args:
             pos (tuple): Coordinate of the upper left pixel.
@@ -90,7 +91,7 @@ class AppUI:
 
         display_data = ["Coffee maker", 0, "Makes more coffee"]
         if self.show["textbox"] == "aeropress":
-            display_data = ["Aeropress", 1, "Presses with air :o"]
+            display_data = ["Aeropress", 1, "Presses with air"]
 
         if self.upgrades[self.show["textbox"]] != 0:
             count = display_data[0] + ": " + str(self.upgrades[self.show["textbox"]])
@@ -182,8 +183,23 @@ class AppUI:
         if pos[1] >= 720:
             self.particles.remove(particle)
 
+    def render_golden_coffee(self):
+        if self.timers["golden"] >= 4*60:
+            alpha = abs(self.timers["golden"] - 7*60)
+        elif self.timers["golden"] <= 3*60:
+            alpha = self.timers["golden"] * 2.333
+        else:
+            alpha = 255
+        Golden().render_golden(self.window, self.images["golden"], self.pos["golden"], alpha)
+        self.timers["golden"] -= 1
+
+        if self.timers["golden"] <= 0:
+            self.pos["golden"] = [-1000, -1000]
+
     def render_elements(self):
         """Renders all non-moving elements on the screen.
+
+        Renders upgrade icons and greys them out when inaccessible.
         """
         self.window.blit(self.images["coffee"], (self.pos["center"]))
         self.window.blit(self.images["bars"], (self.pos["upgrade0"]))
@@ -200,11 +216,15 @@ class AppUI:
 
         for k, v in self.cost.items():
             if not self.unlocked[k]:
-                return
+                break
             if self.score < v:
                 self.window.blit(grey_box, self.pos[k])
 
+        self.black_out_upgrades()
+
     def black_out_upgrades(self):
+        """Renders a fading black box over upgrades, that haven't been unlocked yet.
+        """
         black_box = pygame.surface.Surface(
             (self.images["coffee_maker"].get_width(),
               self.images["coffee_maker"].get_height()))
@@ -224,7 +244,6 @@ class AppUI:
                 continue
             alpha = 440 - (440/v) * self.score
             black_box.set_alpha(alpha)
-            print(alpha)
             self.window.blit(black_box, self.pos[k])
 
     def fill_screen(self):
