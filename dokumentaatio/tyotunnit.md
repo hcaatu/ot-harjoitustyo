@@ -15,5 +15,5 @@
 | 7.12. | 1    | perehtyminen docstringeihin |
 | 8.12. | 4    | particle-efektin koodaaminen, refaktorointi |
 | 11.12. | 8   | partikkeleiden koodaaminen, docstringien lisääminen, uuden upgraden lisäys, aiemman koodin parantelu |
-| 12.12. | 2    | uusia UI elementtejä, koodin jakamista pienmpiin osiin |
-| yht | 59   | 
+| 12.12. | 7    | uusia UI elementtejä, koodin jakamista pienmpiin osiin, golden coffee koodaaminen |
+| yht | 64   | 
