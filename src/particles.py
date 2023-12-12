@@ -1,9 +1,5 @@
-import os
 import random
-import pygame
-
-# path to the directory of this file
-dirname = os.path.dirname(__file__)
+from image_loader import ImageLoader
 
 class Particle:
     """This class is in charge of generating and calculating the positions of generated particles.
@@ -11,8 +7,7 @@ class Particle:
     def __init__(self):
         """Constructor function for the class.
         """
-        self.particles = {}
-        self.load_images()
+        self.particles = ImageLoader().load_particles()
         self.timestep = 0
         self.a_value = 0
         self.direction = 0
@@ -20,15 +15,6 @@ class Particle:
         self.img = self.choose_image()
         self.alpha = 255
         self.choose_parameters()
-
-    def load_images(self):
-        """Loads images from assets.
-        """
-        filenames = ["beans", "mug", "caffeine"]
-        for name in filenames:
-            self.particles[name] = (pygame.image.load(
-                os.path.join(dirname, "assets", name + ".png")
-            ))
 
     def choose_parameters(self):
         """Chooses random parameters for a particle effect.

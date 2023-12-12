@@ -1,7 +1,6 @@
 import pygame
 from ui import AppUI
 from app import App
-from upgrades import CoffeeMaker
 from particles import Particle
 
 class Main:
@@ -26,13 +25,6 @@ class Main:
             if event.key == pygame.K_ESCAPE:
                 self.running = False
 
-            if event.key == pygame.K_a:  # cheat
-                if self.app.buy_upgrade(
-                    CoffeeMaker(), self.app.cost["coffee_maker"]):
-                    self.ui.cost["coffee_maker"] *= 1.2
-                else:
-                    self.ui.timers["coffee_maker"] = 1.5*self.app.tickrate
-
             if event.key == pygame.K_s:
                 self.app.save_game()
                 self.ui.timers["game_saved"] = 2*self.app.tickrate
@@ -44,7 +36,6 @@ class Main:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.ui.mouse_collide(self.ui.images["coffee"], self.ui.pos["center"], event):
                 self.app.apply_score()
-                self.ui.timers["particle"] += 2*self.app.tickrate
                 self.ui.particles.append(Particle())
 
             if self.ui.mouse_collide(self.ui.images["bars"], self.ui.pos["upgrade0"], event):
@@ -77,12 +68,12 @@ class Main:
 
             self.ui.render_text()
             self.ui.render_elements()
+            self.ui.black_out_upgrades()
 
             if self.ui.timers["game_saved"]:
                 self.ui.render_with_timer("game_saved")
-            if self.ui.timers["particle"]:
-                for p in self.ui.particles:
-                    self.ui.render_particles(p)
+            for p in self.ui.particles:
+                self.ui.render_particles(p)
             for upgrade in self.app.data:
                 if self.ui.timers[upgrade.name] and self.ui.show["textbox"]:
                     self.ui.render_with_timer(upgrade.name, event.pos)

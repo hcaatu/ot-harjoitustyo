@@ -4,7 +4,8 @@ class InstantCoffee:
     def __init__(self):
         self.name = "instant_coffee"
         self.cost = 1000
-        self.profit = 1
+        self.profit = 0
+        self.click_power = 10
 
 class CoffeeMaker:
     def __init__(self):

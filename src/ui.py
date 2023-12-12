@@ -1,10 +1,8 @@
-import os
 import pygame
 import upgrades
+from math import sqrt
 from particles import Particle
-
-# path to the directory of this file
-dirname = os.path.dirname(__file__)
+from image_loader import ImageLoader
 
 class AppUI:
     """Class providing screen rendering functions, and at the moment particle effects.
@@ -16,18 +14,17 @@ class AppUI:
         self.resolution = (1280, 720)
         self.window = pygame.display.set_mode(self.resolution)
 
-        self.show = {"textbox" : False, "upgrades" : False}
-        self.images = {}
+        self.images = ImageLoader().load_images()
         self.particles = []
+        self.show = {"textbox" : False, "upgrades" : False}
         self.timers = {"game_saved": 0, "coffee_maker": 0, "aeropress": 0, "particle": 0}
         self.font = pygame.font.SysFont("Arial", 24)
-
-        self.load_images()
 
         self.data = [upgrades.CoffeeMaker(), upgrades.AeroPress()]
 
         self.score = 0
         self.profit = 0
+        self.unlocked = {"coffee_maker": False, "aeropress" : False}
         self.upgrades = {"coffee_maker": 0, "aeropress" : 0}
         self.cost = {"coffee_maker": self.data[0].cost,
                      "aeropress": self.data[1].cost}
@@ -35,17 +32,6 @@ class AppUI:
         self.pos = {}
         self.safezone = 18
         self.calculate_positions()
-
-    def load_images(self):
-        """Load images using pygame built in image.load function.
-        """
-        filenames = ["coffee", "bars", "coffee_maker", "textbox", "aeropress"]
-        for name in filenames:
-            self.images[name] = (pygame.image.load(
-                os.path.join(dirname, "assets", name + ".png")
-            ))
-        self.images["small_coffee"] = self.images["coffee"]
-        self.images["big_coffee"] = pygame.transform.scale_by(self.images["coffee"], [1.2, 1.2])
 
     def calculate_positions(self):
         """Calculates UI elements poisitions in coordinate form and stores them in dict.
@@ -162,6 +148,8 @@ class AppUI:
             if not self.mouse_collide(self.images[upgrade.name], self.pos[upgrade.name], event):
                 count += 1
                 continue
+            if not self.unlocked[upgrade.name]:
+                continue
             if self.show["upgrades"]:
                 self.pos["textbox"] = (
                     event.pos[0] - self.images["textbox"].get_width(), event.pos[1])
@@ -188,27 +176,56 @@ class AppUI:
         """
         pos = Particle.calculate_pos(self, particle)
         self.window.blit(particle.img, pos)
-        self.timers["particle"] -= 1
         particle.timestep += 0.5
-        particle.alpha -= 5
+        particle.alpha -= 4
         particle.img.set_alpha(particle.alpha)
+        if pos[1] >= 720:
+            self.particles.remove(particle)
 
     def render_elements(self):
         """Renders all non-moving elements on the screen.
         """
         self.window.blit(self.images["coffee"], (self.pos["center"]))
         self.window.blit(self.images["bars"], (self.pos["upgrade0"]))
+        if not self.show["upgrades"]:
+            return
+        self.window.blit(self.images["coffee_maker"], self.pos["coffee_maker"])
+        self.window.blit(self.images["aeropress"], self.pos["aeropress"])
+
         grey_box = pygame.surface.Surface(
             (self.images["coffee_maker"].get_width(),
               self.images["coffee_maker"].get_height()))
         grey_box.fill((255,255,255))
         grey_box.set_alpha(100)
-        if self.show["upgrades"]:
-            self.window.blit(self.images["coffee_maker"], self.pos["coffee_maker"])
-            self.window.blit(self.images["aeropress"], self.pos["aeropress"])
-            for k, v in self.cost.items():
-                if self.score < v:
-                    self.window.blit(grey_box, self.pos[k])
+
+        for k, v in self.cost.items():
+            if not self.unlocked[k]:
+                return
+            if self.score < v:
+                self.window.blit(grey_box, self.pos[k])
+
+    def black_out_upgrades(self):
+        black_box = pygame.surface.Surface(
+            (self.images["coffee_maker"].get_width(),
+              self.images["coffee_maker"].get_height()))
+        black_box.fill((0,0,0))
+
+        if not self.show["upgrades"]:
+            return
+        for k, v in self.cost.items():
+            if self.unlocked[k]:
+                continue
+            if self.score >= v:
+                self.unlocked[k] = True
+                continue
+            if self.score < v * 0.5:
+                black_box.set_alpha(220)
+                self.window.blit(black_box, self.pos[k])
+                continue
+            alpha = 440 - (440/v) * self.score
+            black_box.set_alpha(alpha)
+            print(alpha)
+            self.window.blit(black_box, self.pos[k])
 
     def fill_screen(self):
         """Fills the screen with grey color.
