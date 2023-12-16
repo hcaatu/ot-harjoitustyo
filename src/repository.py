@@ -1,13 +1,6 @@
 import os
 from pathlib import Path
-
-class SaveFile:
-    """Class SaveFile is used to read the save file into a correct format.
-    """
-    def __init__(self, score: int, upgrades: dict, cost :dict):
-        self.score = score
-        self.upgrades = upgrades
-        self.cost = cost
+from savefile import SaveFile
 
 class Repository:
     """Repository class handles data writing, reading, and 

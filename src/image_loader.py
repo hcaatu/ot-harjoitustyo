@@ -6,7 +6,7 @@ dirname = os.path.dirname(__file__)
 class ImageLoader:
     def __init__(self):
         self.images = {}
-    
+
     def load_images(self):
         """Load images using pygame built in image.load function.
 
@@ -34,7 +34,7 @@ class ImageLoader:
                 os.path.join(dirname, "assets", name + ".png")
             ))
         return self.images
-    
+
     def load_golden_coffee(self):
         """Loads the golden coffee icon.
 

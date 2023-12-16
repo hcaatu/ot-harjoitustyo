@@ -1,6 +1,5 @@
 import os
 import upgrades
-from golden import Golden
 from repository import SaveFile, Repository
 
 dirname = os.path.dirname(__file__)

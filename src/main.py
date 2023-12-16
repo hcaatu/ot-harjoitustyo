@@ -51,15 +51,16 @@ class Main:
                     self.ui.show["upgrades"] = True
 
             for upgrade in self.app.data:
-                if self.ui.mouse_collide(self.ui.images[upgrade.name],
+                if not self.ui.mouse_collide(self.ui.images[upgrade.name],
                                         self.ui.pos[upgrade.name], event):
-                    if not self.ui.show["upgrades"]:
-                        return
-                    if self.app.buy_upgrade(
-                        upgrade, self.app.cost[upgrade.name]):
-                        self.ui.cost[upgrade.name] *= 1.1
-                    else:
-                        self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
+                    return
+                if not self.ui.show["upgrades"]:
+                    return
+                if self.app.buy_upgrade(
+                    upgrade, self.app.cost[upgrade.name]):
+                    self.ui.cost[upgrade.name] *= 1.1
+                else:
+                    self.ui.timers[upgrade.name] = 1.5*self.app.tickrate
 
         if event.type == pygame.MOUSEMOTION:
             self.ui.render_motion_elements(event)
@@ -89,7 +90,7 @@ class Main:
                 self.ui.render_textbox(self.ui.pos["textbox"])
 
             self.app.apply_profit()
-            
+
             if not self.ui.timers["golden"]:
                 golden = self.golden.generate()
                 if golden:
