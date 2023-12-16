@@ -2,12 +2,17 @@ import os
 from pathlib import Path
 
 class SaveFile:
+    """Class SaveFile is used to read the save file into a correct format.
+    """
     def __init__(self, score: int, upgrades: dict, cost :dict):
         self.score = score
         self.upgrades = upgrades
         self.cost = cost
 
 class Repository:
+    """Repository class handles data writing, reading, and 
+        making the .csv file into the correct format.
+    """
     def __init__(self, file_path):
         self._path = file_path
         self.loaded_file = SaveFile(0, {}, {})
@@ -24,6 +29,8 @@ class Repository:
         return self._read()
 
     def _ensure_file_exists(self):
+        """Checks if a save file exists, and if not, initializes one in a correct format
+        """
         if Path(self._path).exists():
             return
         Path(self._path).touch()
@@ -33,6 +40,12 @@ class Repository:
             file.write(data)
 
     def _split_save_data(self, index, row):
+        """Converts string into correct (dict) format
+
+        Args:
+            index (int): Iteration of the loop
+            row (str): Single row of the data
+        """
         row = row.replace("\n", "")
         if index == 0:
             self.loaded_file.score = float(row)
@@ -54,6 +67,11 @@ class Repository:
                 self.loaded_file.cost[cost[0]] = float(cost[1])
 
     def _read(self):
+        """Reads data from the .csv file
+
+        Returns:
+            self.loaded_file: SaveFile object
+        """
         self._ensure_file_exists()
 
         with open(self._path, encoding="utf-8") as file:
@@ -64,6 +82,11 @@ class Repository:
         return self.loaded_file
 
     def _write(self, save_file: SaveFile):
+        """Converts and writes data to the .csv file
+
+        Args:
+            save_file: SaveFile object
+        """
         self._ensure_file_exists()
 
         with open(self._path, "w", encoding="utf-8") as file:

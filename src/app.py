@@ -1,6 +1,9 @@
+import os
 import upgrades
 from golden import Golden
 from repository import SaveFile, Repository
+
+dirname = os.path.dirname(__file__)
 
 class App:
     """Class handles the funcitionality of the game.
@@ -19,7 +22,7 @@ class App:
                      "aeropress": self.data[1].cost}
         self.click = 1
         self.profit = 0
-        self.repository = Repository("data/data.csv")
+        self.repository = Repository(os.path.join(dirname, "data.csv"))
 
     def buy_upgrade(self, upgrade, cost):
         """Used to check if there is enough score to buy an upgrade, 
@@ -60,6 +63,8 @@ class App:
             self.score += self.profit / self.tickrate
 
     def golden_click(self):
+        """Handles the event where players clicks the golden coffee on screen
+        """
         if self.profit == 0:
             self.score += 60
         else:

@@ -235,7 +235,7 @@ class AppUI:
         for k, v in self.cost.items():
             if self.unlocked[k]:
                 continue
-            if self.score >= v:
+            if self.score >= v or self.upgrades[k]:
                 self.unlocked[k] = True
                 continue
             if self.score < v * 0.5:

@@ -1,7 +1,7 @@
 import unittest
 import tempfile
 from app import App
-from upgrade import CoffeeMaker
+from upgrades import CoffeeMaker
 
 class TestApp(unittest.TestCase):
     def setUp(self):
@@ -12,8 +12,7 @@ class TestApp(unittest.TestCase):
     def test_constructor_functions_sets_correct_values(self):
         self.assertEqual(self.app.score, 100)
         self.assertEqual(self.app.tickrate, 60)
-        self.assertEqual(self.app.profit, None)
-        self.assertEqual(self.app.time_played, 0)
+        self.assertEqual(self.app.profit, 0)
 
     def test_buy_upgrade(self):
         upgrade = CoffeeMaker()
@@ -47,3 +46,11 @@ class TestApp(unittest.TestCase):
         self.app.profit = 0
         self.app.apply_profit()
         self.assertEqual(self.app.score, initial_score)
+
+    def test_golden_click(self):
+        self.app.score = 0
+        self.app.golden_click()
+        self.assertEqual(self.app.score, 60)
+        self.app.profit = 10
+        self.app.golden_click()
+        self.assertEqual(self.app.score, 660)
