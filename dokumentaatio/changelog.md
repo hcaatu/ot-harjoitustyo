@@ -25,3 +25,6 @@
 - Lisätty UI-elementtejä
 - Lisätty satunnaisesti ilmestyvä kultainen kahvi, jota klikkaamalla saa suuren määrän scorea
 - Tehty koodista päivitettävämää ja luettavampaa
+
+## Viikko 7
+- Jaettu koodia useampaan moduuliin ja pilkottu funktoita pienempiin
