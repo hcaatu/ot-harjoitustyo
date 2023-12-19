@@ -16,4 +16,8 @@
 | 8.12. | 4    | particle-efektin koodaaminen, refaktorointi |
 | 11.12. | 8   | partikkeleiden koodaaminen, docstringien lisääminen, uuden upgraden lisäys, aiemman koodin parantelu |
 | 12.12. | 7    | uusia UI elementtejä, koodin jakamista pienmpiin osiin, golden coffee koodaaminen |
-| yht | 64   | 
+| 14.12. | 2    | bugien korjaaminen, koodin siistiminen |
+| 16.12. | 2    | refaktorointi |
+| 18.12. | 1    | UI:n siistiminen, loppupalautuksen vaatimuksien tarkastelu |
+| 19.12. | 3    | refaktorointi, docstringien lisääminen |
+| yht | 72   | 
