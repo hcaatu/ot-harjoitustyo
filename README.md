@@ -4,8 +4,11 @@ Pelin tavoitteena on klikkailla kahvikuvaketta, ostaa päivityksiä ja siten ker
 
 Peli toimii samalla Aineopinteojen harjoitustyö: Ohjelmistotekniikka -kurssin projektina. 
 
+![image](https://github.com/hcaatu/ot-harjoitustyo/assets/128474929/950b265f-f275-48db-898c-0c353c229bb8)
+
+
 ## Peliohje
-Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tallennuksen automaattisesti käynnistäessä. Painamalla G näppäimistöstä saa 1000 scorea, jonka avulla voi testata ominaisuuksia.
+Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tallennuksen automaattisesti käynnistäessä. Painamalla G näppäimistöstä saa 1000 scorea, jonka avulla voi testata ominaisuuksia. 
 
 ## Dokumentaatio
 - [Työtunnit](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/tyotunnit.md)
@@ -14,15 +17,21 @@ Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tall
 - [Arkkitehtuurikuvaus](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 - [Release 1](https://github.com/hcaatu/ot-harjoitustyo/releases/tag/viikko5)
 
-## Asennus
+## Asennus- ja käyttöohje
 
-1. Riippuvuudet asennetaan komennolla
+1. Kloonaa repositorio hakemistoon komennolla
+
+```bash
+git clone
+```
+
+2. Asenna sovelluksen riippuvuudet komennolla
 
 ```bash
 poetry install
 ```
 
-2. Sovellus käynnistetään komennolla
+3. Sovellus käynnistetään komennolla
 
 ```bash
 poetry run invoke start
