@@ -1,8 +1,10 @@
 import pygame
 import upgrades
 from particles import Particle
-from golden import Golden
 from image_loader import ImageLoader
+
+# assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
+# pylint: disable=consider-using-f-string
 
 class AppUI:
     """Class providing screen rendering functions, and at the moment particle effects.
@@ -18,7 +20,7 @@ class AppUI:
         self.particles = []
         self.show = {"textbox" : False, "upgrades" : False}
         self.timers = {"game_saved": 0, "coffee_maker": 0, "aeropress": 0, "golden": 0}
-        self.font = pygame.font.SysFont("Arial", 24)
+        self.font = pygame.font.SysFont("Arial", 22)
 
         self.data = [upgrades.CoffeeMaker(), upgrades.AeroPress()]
 
@@ -63,7 +65,7 @@ class AppUI:
             pos (tuple, optional): Position of the upper left corner of the text. Defaults to None.
         """
         black = (0, 0, 0)
-        size = 28
+        size = 24
         font = pygame.font.SysFont("Arial", size)
         if msg == "game_saved":
             pos = (self.safezone, self.resolution[1] - size - self.safezone)
@@ -101,9 +103,7 @@ class AppUI:
             self.window.blit((font.render(display_data[0], True, black)),
                     [margin + i for i in pos])
 
-    # assigning variable before using it in f-string fixes syntax error in wsl, hence pylint comment
-
-        decimal_format = "{:.2f}".format(self.cost[self.show["textbox"]]) # pylint: disable=consider-using-f-string
+        decimal_format = "{:.2f}".format(self.cost[self.show["textbox"]])
 
         self.window.blit((font.render(f"Cost: {decimal_format}", True, black)), (
             pos[0] + margin, pos[1] + margin + leading))
@@ -184,15 +184,21 @@ class AppUI:
             self.particles.remove(particle)
 
     def render_golden_coffee(self):
+        """Calculates the transparency (alpha) value, renders the icon, and adjusts the timer.
+        """
         if self.timers["golden"] >= 4*60:
             alpha = abs(self.timers["golden"] - 7*60)
         elif self.timers["golden"] <= 3*60:
             alpha = self.timers["golden"] * 2.333
         else:
             alpha = 255
-        Golden().render_golden(self.window, self.images["golden"], self.pos["golden"], alpha)
-        self.timers["golden"] -= 1
 
+        img = self.images["golden"]
+        pos = self.pos["golden"]
+        img.set_alpha(alpha)
+        self.window.blit(img, pos)
+
+        self.timers["golden"] -= 1
         if self.timers["golden"] <= 0:
             self.pos["golden"] = [-1000, -1000]
 
@@ -224,32 +230,37 @@ class AppUI:
 
     def black_out_upgrades(self):
         """Renders a fading black box over upgrades, that haven't been unlocked yet.
+
+        Transparency (alpha) values hard coded so that the black box fades 
+        away just as user is getting enough score.
         """
         black_box = pygame.surface.Surface(
             (self.images["coffee_maker"].get_width(),
               self.images["coffee_maker"].get_height()))
-        black_box.fill((0,0,0))
+        black_box.fill((40,40,40))
 
         if not self.show["upgrades"]:
             return
-        for k, v in self.cost.items():
-            if self.unlocked[k]:
+        for name, cost in self.cost.items():
+            if self.unlocked[name]:
                 continue
-            if self.score >= v or self.upgrades[k]:
-                self.unlocked[k] = True
+            if self.score >= cost or self.upgrades[name]:
+                self.unlocked[name] = True
                 continue
-            if self.score < v * 0.5:
-                black_box.set_alpha(220)
-                self.window.blit(black_box, self.pos[k])
-                continue
-            alpha = 440 - (440/v) * self.score
-            black_box.set_alpha(alpha)
-            self.window.blit(black_box, self.pos[k])
+
+            alpha = 1000 - (1000/cost) * self.score
+            if alpha > 240:
+                black_box.set_alpha(240)
+                self.window.blit(black_box, self.pos[name])
+            else:
+                black_box.set_alpha(alpha)
+                self.window.blit(black_box, self.pos[name])
 
     def fill_screen(self):
         """Fills the screen with grey color.
         """
-        self.window.fill((200, 200, 200))
+        grey = (200, 200, 200)
+        self.window.fill(grey)
 
     def get_center(self, icon):
         """Calculates center with offset for blitting the upper left corner.
