@@ -19,19 +19,24 @@ Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tall
 
 ## Asennus- ja käyttöohje
 
-1. Kloonaa repositorio hakemistoon komennolla
+1. Repositorion voi kloonata hakemistoon komennolla
 
 ```bash
 git clone
 ```
 
-2. Asenna sovelluksen riippuvuudet komennolla
+2. Hakemistoon voi siirtyä komennolla
+```bash
+cd ot-harjoitustyo
+```
+
+3. Sovelluksen riippuvuudet asennetaan komennolla
 
 ```bash
 poetry install
 ```
 
-3. Sovellus käynnistetään komennolla
+4. Sovellus käynnistetään komennolla
 
 ```bash
 poetry run invoke start
@@ -41,19 +46,22 @@ poetry run invoke start
 
 ### Testaus
 
-Ohjelman testaus tapahtuu suorittamalla komento:
+Ohjelman testit voi suorittaa ot-harjoitustyo -hakemiston sisällä komennolla:
 
 ```bash
 poetry run invoke test
 ```
-
-### Testikattavuus
 
 Testikattavuusraportin saa generoitua komennolla:
 
 ```bash
 poetry run invoke coverage-report
 ```
+
+Testauskattavuus on viimeisimmässä versiossa 78%.
+ | statements | missing  |  excluded | branches | partial | coverage |
+| :----:|:-----| :-----|:-----|:-----|:-----|
+| 288 | 49    | 0 | 94| 10|78%|
 
 ### Pylint
 
@@ -62,3 +70,6 @@ Tiedoston [.pylintrc](./.pylintrc) mukaiset koodin tarkastukset voidaan suoritta
 ```bash
 poetry run invoke lint
 ```
+
+Viimeisimmässä versiossa komennon ajaminen kertoo seuraavaa:
+Your code has been rated at 9.93/10 (previous run: 9.93/10, -0.00)
