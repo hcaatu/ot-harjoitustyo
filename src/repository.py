@@ -15,10 +15,12 @@ class Repository:
         os.remove(self._path)
 
     def save(self, save_file):
+        self._ensure_file_exists()
         self._write(save_file)
         return save_file
 
     def load(self):
+        self._ensure_file_exists()
         return self._read()
 
     def _ensure_file_exists(self):
@@ -65,8 +67,6 @@ class Repository:
         Returns:
             self.loaded_file: SaveFile object
         """
-        self._ensure_file_exists()
-
         with open(self._path, encoding="utf-8") as file:
             index = 0
             for row in file:
@@ -80,8 +80,6 @@ class Repository:
         Args:
             save_file: SaveFile object
         """
-        self._ensure_file_exists()
-
         with open(self._path, "w", encoding="utf-8") as file:
             score = str(save_file.score)
             uprgades = ""
