@@ -15,7 +15,7 @@ Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tall
 - [Vaatimusmäärittely](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 - [Changelog](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/changelog.md)
 - [Arkkitehtuurikuvaus](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
-- [Release 1](https://github.com/hcaatu/ot-harjoitustyo/releases/tag/viikko5)
+- [Testausdokumentti](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
 
 ## Asennus- ja käyttöohje
 
@@ -74,5 +74,5 @@ poetry run invoke lint
 
 Huom. Moduulissa UI on asetettu poikkeus pylint: disable=consider-using-f-string, sillä muuttujan alustaminen ennen f-stringiin sijoittamista korjaa selittämättämän syntax errorin WSL:ssä. Virtuaalityöpöydällä Linuxissa en kohdannut samaa ongelmaa.
 
-Viimeisimmässä versiossa komennon ajaminen kertoo seuraavaa:
+Viimeisimmässä versiossa pylint-virheitä on kolme ja komennon ajaminen kertoo seuraavaa:
 Your code has been rated at 9.93/10 (previous run: 9.93/10, -0.00)
