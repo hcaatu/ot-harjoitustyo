@@ -21,4 +21,4 @@
 | 18.12. | 1    | UI:n siistiminen, loppupalautuksen vaatimuksien tarkastelu |
 | 19.12. | 3    | refaktorointi, docstringien lisääminen |
 | 21.12. | 2    | testikattavuuden lisääminen |
-| yht | 72   | 
+| yht | 74   | 
