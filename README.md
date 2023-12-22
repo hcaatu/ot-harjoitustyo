@@ -16,6 +16,7 @@ Pelin voi tallentaa painamalla näppäimistöstä S. Peli lataa aikaisemman tall
 - [Changelog](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/changelog.md)
 - [Arkkitehtuurikuvaus](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 - [Testausdokumentti](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
+- [Selvitys kielimallien käytöstä](https://github.com/hcaatu/ot-harjoitustyo/blob/master/dokumentaatio/selvitys_kielimallien_kaytosta.md)
 
 ## Asennus- ja käyttöohje
 
