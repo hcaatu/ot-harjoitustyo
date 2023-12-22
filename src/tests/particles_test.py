@@ -5,7 +5,7 @@ from particles import Particle
 class TestParticle(unittest.TestCase):
     def setUp(self):
         self.particle = Particle()
-        self.particle.choose_parameters()
+        self.particle._choose_parameters()
 
     def test_choose_parameters(self):
         self.assertTrue(self.particle.a_value in range(-15, 0))
@@ -13,7 +13,7 @@ class TestParticle(unittest.TestCase):
         self.assertTrue(self.particle.noise in range(0, 50))
 
     def test_choose_image(self):
-        image = self.particle.choose_image()
+        image = self.particle._choose_image()
         self.assertEqual(type(image), pygame.Surface)
     
     def test_calculate_pos(self):

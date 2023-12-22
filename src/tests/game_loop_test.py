@@ -6,7 +6,7 @@ class GameLoopTest(unittest.TestCase):
         self.loop = GameLoop()
 
     def test_sync(self):
-        self.loop.sync()
+        self.loop._sync()
         self.assertEqual(self.loop.ui.score, self.loop.app.score)
         self.assertEqual(self.loop.ui.profit, self.loop.app.profit)
         self.assertEqual(self.loop.ui.upgrades, self.loop.app.upgrades)
