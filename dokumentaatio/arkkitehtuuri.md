@@ -10,17 +10,15 @@ Kaavion avulla on havainnollisestettuna, mitä yhden pelisilmukan iteraation aik
 ```mermaid
 sequenceDiagram
     actor Main
-    participant GameLoop
-    participant EventHandler
 
     Main->>GameLoop: start()
     create participant pygame.time.Clock
-    GameLoop->>pygame.time.Clock: create Clock
+    GameLoop->>pygame.time.Clock: create pygame.time.Clock
     create participant App
     GameLoop->>App: create App
     create participant Repository
     App->>Repository: create Repository
-    create participant AppUI: create AppUI
+    create participant AppUI
     GameLoop->>AppUI: create AppUI
     create participant pygame.window
     AppUI->>pygame.window: create pygame.window
@@ -38,6 +36,10 @@ sequenceDiagram
     GameLoop->>GameLoop: sync()
     GameLoop->>EventHandler: handle_events()
 
+    EventHandler->>EventHandler: handle_keyboard_inputs()
+    EventHandler->>EventHandler: handle_mouse_inputs()
+    EventHandler->>AppUI: render_motion_elements()
+
     GameLoop->>AppUI: fill_screen()
     AppUI->>pygame.window: fill(grey)
 
@@ -46,6 +48,17 @@ sequenceDiagram
     AppUI->>pygame.window: blit(score_per_second)
 
     GameLoop->>AppUI: render_elements()
+    AppUI->>pygame.window: blit(images)
+    AppUI->>AppUI: black_out_upgrades()
+
+    GameLoop->>Golden: generate()
+    Golden-->>GameLoop: pos
+    GameLoop->>AppUI: render_golden_coffee()
+    
+    
+    GameLoop->>App: apply_profit()
+    GameLoop->>pygame.window: update()
+    GameLoop->>pygame.time.Clock: tick(60)
     
     
     
