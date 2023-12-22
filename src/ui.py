@@ -7,7 +7,7 @@ from image_loader import ImageLoader
 # pylint: disable=consider-using-f-string
 
 class AppUI:
-    """Class providing screen rendering functions, and at the moment particle effects.
+    """Class providing screen rendering functions.
     """
     def __init__(self):
         """Construnctor function that assigns a value to all attributes.

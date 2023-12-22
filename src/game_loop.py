@@ -25,14 +25,17 @@ class GameLoop:
         self.ui.cost = self.app.cost
 
     def start(self):
-        """The game loop itself, updates the screen and handles
+        """The game loop itself, uses the UI module to update screen.
 
-
+        The function handles user inputs using the event handler module and updates
+        attributes that are constantly changing, also checking if some UI element needs
+        to be rendered from the different timers.
         """
         while self.running:
             self.sync()
 
             for event in pygame.event.get():
+                print(event)
                 self.running = self.handler.handle_events(event, self.ui, self.app)
 
             self.ui.fill_screen()

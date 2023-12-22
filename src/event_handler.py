@@ -88,8 +88,8 @@ class EventHandler:
         if event.key == pygame.K_s:
             app.save_game()
             ui.timers["game_saved"] = 2*app.tickrate
-        # cheat
+
         if event.key == pygame.K_g:
-            app.score += 1000
+            app.score += 1000 # cheat
 
         return True

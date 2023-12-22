@@ -2,6 +2,8 @@ import unittest
 import tempfile
 from app import App
 from upgrades import CoffeeMaker
+from savefile import SaveFile
+from repository import Repository
 
 class TestApp(unittest.TestCase):
     def setUp(self):
@@ -28,6 +30,12 @@ class TestApp(unittest.TestCase):
         self.assertEqual(self.app.cost[upgrade.name], initial_cost * 1.2)
         self.assertEqual(self.app.profit, 1)
 
+    def test_buy_upgrade_returns_false_correctly(self):
+        self.app.score = 0
+        upgrade = CoffeeMaker()
+        
+        self.assertEqual(self.app.buy_upgrade(upgrade, upgrade.cost), False)
+
     def test_calculate_profit(self):
         upgrade = CoffeeMaker()
 
@@ -48,9 +56,30 @@ class TestApp(unittest.TestCase):
         self.assertEqual(self.app.score, initial_score)
 
     def test_golden_click(self):
+        # no score, no profit
         self.app.score = 0
         self.app.golden_click()
         self.assertEqual(self.app.score, 60)
+        # increased profit
         self.app.profit = 10
         self.app.golden_click()
         self.assertEqual(self.app.score, 660)
+
+    def test_apply_score(self):
+        self.app.apply_score()
+        self.assertEqual(self.app.score, 101)
+
+    def test_save_game(self):
+        self.app.repository.delete_all()
+        self.app.score = 100
+        self.app.upgrades = {"coffee_maker":0,"aeropress":0}
+        self.app.cost = {"coffee_maker":10,"aeropress":100}
+        file = self.app.save_game()
+        self.assertEqual(type(file), type(SaveFile(100, {"coffee_maker":0,"aeropress":0}, {"coffee_maker":10,"aeropress":100})))
+
+    def test_load_game(self):
+        self.app.repository.delete_all()
+        self.app.load_game()
+        self.assertEqual(self.app.score, 0)
+        self.assertEqual(self.app.upgrades, {"coffee_maker":0,"aeropress":0})
+        self.assertEqual(self.app.cost, {"coffee_maker":10,"aeropress":100})

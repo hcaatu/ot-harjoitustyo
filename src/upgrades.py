@@ -1,5 +1,6 @@
 """Module containing the available upgrades.
 """
+# not yet in the game
 class InstantCoffee:
     def __init__(self):
         self.name = "instant_coffee"
