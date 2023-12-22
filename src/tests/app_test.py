@@ -3,7 +3,6 @@ import tempfile
 from app import App
 from upgrades import CoffeeMaker
 from savefile import SaveFile
-from repository import Repository
 
 class TestApp(unittest.TestCase):
     def setUp(self):

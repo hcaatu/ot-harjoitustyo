@@ -35,7 +35,6 @@ class GameLoop:
             self.sync()
 
             for event in pygame.event.get():
-                print(event)
                 self.running = self.handler.handle_events(event, self.ui, self.app)
 
             self.ui.fill_screen()
