@@ -38,7 +38,7 @@ class AppUI:
     def calculate_positions(self):
         """Calculates UI elements poisitions in coordinate form and stores them in dict.
         """
-        self.pos["center"] = self.get_center(self.images["coffee"])
+        self.pos["center"] = self._get_center(self.images["coffee"])
         self.pos["textbox"] = [0, 0]
         self.pos["upgrade0"] = (
             self.resolution[0] - self.images["bars"].get_width() - self.safezone, self.safezone)
@@ -163,10 +163,10 @@ class AppUI:
 
         if self.mouse_collide(self.images["coffee"], self.pos["center"], event):
             self.images["coffee"] = self.images["big_coffee"]
-            self.pos["center"] = self.get_center(self.images["coffee"])
+            self.pos["center"] = self._get_center(self.images["coffee"])
         else:
             self.images["coffee"] = self.images["small_coffee"]
-            self.pos["center"] = self.get_center(self.images["coffee"])
+            self.pos["center"] = self._get_center(self.images["coffee"])
 
 
     def render_particles(self, particle):
@@ -262,7 +262,7 @@ class AppUI:
         grey = (200, 200, 200)
         self.window.fill(grey)
 
-    def get_center(self, icon):
+    def _get_center(self, icon):
         """Calculates center with offset for blitting the upper left corner.
 
         Args:

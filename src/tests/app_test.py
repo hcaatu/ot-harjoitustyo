@@ -39,7 +39,7 @@ class TestApp(unittest.TestCase):
         upgrade = CoffeeMaker()
 
         self.app.buy_upgrade(upgrade, upgrade.cost)
-        self.app.calculate_profit()
+        self.app._calculate_profit()
         self.assertEqual(self.app.profit, 1)
 
     def test_apply_profit(self):

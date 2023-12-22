@@ -16,7 +16,7 @@ class GameLoop:
         self.running = True
         self.app.load_game()
 
-    def sync(self):
+    def _sync(self):
         """Sends values from the app module to the UI module.
         """
         self.ui.score = self.app.score
@@ -32,7 +32,7 @@ class GameLoop:
         to be rendered from the different timers.
         """
         while self.running:
-            self.sync()
+            self._sync()
 
             for event in pygame.event.get():
                 self.running = self.handler.handle_events(event, self.ui, self.app)

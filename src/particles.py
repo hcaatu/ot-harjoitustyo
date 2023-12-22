@@ -12,18 +12,18 @@ class Particle:
         self.a_value = 0
         self.direction = 0
         self.noise = 0
-        self.img = self.choose_image()
+        self.img = self._choose_image()
         self.alpha = 255
-        self.choose_parameters()
+        self._choose_parameters()
 
-    def choose_parameters(self):
+    def _choose_parameters(self):
         """Chooses random parameters for a particle effect.
         """
         self.a_value = random.randrange(-15, 0)
         self.direction = random.choice((-1, 1))
         self.noise = random.randrange(0, 50)
 
-    def choose_image(self):
+    def _choose_image(self):
         """Chooses an image at random for a particle.
 
         Returns:

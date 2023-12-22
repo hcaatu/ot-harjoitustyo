@@ -39,10 +39,10 @@ class App:
             self.score -= cost
             self.upgrades[upgrade.name] += 1
             self.cost[upgrade.name] *= 1.2
-            self.calculate_profit()
+            self._calculate_profit()
         return success
 
-    def calculate_profit(self):
+    def _calculate_profit(self):
         """Calculates coffee per second based on purchased upgrades.
         """
         self.profit = 0
@@ -86,4 +86,4 @@ class App:
         self.score = file.score
         self.upgrades = file.upgrades
         self.cost = file.cost
-        self.calculate_profit()
+        self._calculate_profit()

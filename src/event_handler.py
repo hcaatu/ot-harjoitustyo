@@ -20,17 +20,17 @@ class EventHandler:
             self.running = False
 
         if event.type == pygame.KEYDOWN:
-            self.running = self.handle_keyboard_inputs(event, ui, app)
+            self.running = self._handle_keyboard_inputs(event, ui, app)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            self.running = self.handle_mouse_inputs(event, ui, app)
+            self.running = self._handle_mouse_inputs(event, ui, app)
 
         if event.type == pygame.MOUSEMOTION:
             ui.render_motion_elements(event)
 
         return self.running
 
-    def handle_mouse_inputs(self, event, ui, app):
+    def _handle_mouse_inputs(self, event, ui, app):
         """Handles mouse movement and clicks.
 
         Uses the pygame.event, which contains mouse position data and the mouse_collide
@@ -71,7 +71,7 @@ class EventHandler:
 
         return True
 
-    def handle_keyboard_inputs(self, event, ui, app):
+    def _handle_keyboard_inputs(self, event, ui, app):
         """Handles keyboard inputs, namely quitting, saving, and cheating.
 
         Args:
