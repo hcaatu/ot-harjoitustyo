@@ -46,6 +46,7 @@ poetry run invoke start
 
 ### Testaus
 
+Sovelluksen toimivuus on testattu virtuaalityöaseman kautta yliopiston Cubbli Linuxilla. Sekä pelin suorittaminen että muutkin komennon toimivat odotetusti.
 Ohjelman testit voi suorittaa ot-harjoitustyo -hakemiston sisällä komennolla:
 
 ```bash
@@ -71,6 +72,7 @@ Tiedoston [.pylintrc](./.pylintrc) mukaiset koodin tarkastukset voidaan suoritta
 poetry run invoke lint
 ```
 
-Huom. Moduulissa UI on asetettu poikkeus pylint: disable=consider-using-f-string, sillä muuttujan alustaminen ennen f-stringiin sijoittamista korjaa selittämättämän errorin WSL:ssä.
+Huom. Moduulissa UI on asetettu poikkeus pylint: disable=consider-using-f-string, sillä muuttujan alustaminen ennen f-stringiin sijoittamista korjaa selittämättämän syntax errorin WSL:ssä. Virtuaalityöpöydällä Linuxissa en kohdannut samaa ongelmaa.
+
 Viimeisimmässä versiossa komennon ajaminen kertoo seuraavaa:
 Your code has been rated at 9.93/10 (previous run: 9.93/10, -0.00)
