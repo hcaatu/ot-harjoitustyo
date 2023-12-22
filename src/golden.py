@@ -9,8 +9,6 @@ class Golden:
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.tickrate = 60
-        print(self.width)
-        print(self.height)
 
     def generate(self, cheat=False):
         """Generates the golden coffee with random chance, but approx once every half minutes.
