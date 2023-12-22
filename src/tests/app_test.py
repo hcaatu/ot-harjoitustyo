@@ -69,14 +69,13 @@ class TestApp(unittest.TestCase):
         self.assertEqual(self.app.score, 101)
 
     def test_save_game(self):
-        self.app.repository.delete_all()
+        self.app.score = 0
         self.app.upgrades = {"coffee_maker":0,"aeropress":0}
         self.app.cost = {"coffee_maker":10,"aeropress":100}
         file = self.app.save_game()
         self.assertEqual(type(file), type(SaveFile(0, {"coffee_maker":0,"aeropress":0}, {"coffee_maker":10,"aeropress":100})))
 
     def test_load_game(self):
-        self.app.repository.delete_all()
         self.app.load_game()
         self.assertEqual(self.app.score, 0)
         self.assertEqual(self.app.upgrades, {"coffee_maker":0,"aeropress":0})
