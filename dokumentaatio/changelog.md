@@ -29,3 +29,4 @@
 ## Viikko 7
 - Jaettu koodia useampaan moduuliin ja pilkottu funktoita pienempiin
 - Lisätty testikattavuutta
+- Lisätty dokumentaatiota
